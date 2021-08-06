@@ -6,6 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Yoshida/Yoshida.unity
+    path: Assets/Yoshida/Scenes/Yoshida.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 21f9f38856d5ee24f9d0944d3dd26d60, type: 2}
