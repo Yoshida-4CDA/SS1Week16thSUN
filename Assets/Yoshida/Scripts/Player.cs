@@ -5,14 +5,11 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    [Header("移動スピード")]
-    [SerializeField] float speed = 3f;
-
-    [Header("ジャンプ力")]
-    [SerializeField] float jump = 9f;
-
     [Header("地面のレイヤー")]
     [SerializeField] LayerMask groundLayer = default;
+
+    [Header("GameManager")]
+    [SerializeField] GameManager gameManager = default;
 
     float axisH;
     Rigidbody2D rb;
@@ -32,7 +29,7 @@ public class Player : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (isFinish)
+        if (isFinish || !gameManager.isStart)
         {
             return;
         }
@@ -43,19 +40,19 @@ public class Player : MonoBehaviour
 
         if (axisH > 0)
         {
-            Debug.Log("右へ移動");
+            // Debug.Log("右へ移動");
             transform.localScale = Vector2.one;
         }
         else if (axisH < 0)
         {
-            Debug.Log("左へ移動");
+            // Debug.Log("左へ移動");
             transform.localScale = new Vector2(-1, 1);
         }
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (isFinish)
+        if (isFinish || !gameManager.isStart)
         {
             return;
         }
@@ -78,14 +75,14 @@ public class Player : MonoBehaviour
         if (isGround || axisH != 0)
         {
             // 地面の上または速度が0ではないなら速度を更新する
-            rb.velocity = new Vector2(speed * axisH, rb.velocity.y);
+            rb.velocity = new Vector2(ParamsSO.Entity.playerSpeed * axisH, rb.velocity.y);
         }
 
         if (isGround && isJump)
         {
             // 地面の上でSpaceキーが押されたらジャンプさせる
-            Debug.Log("ジャンプ");
-            Vector2 jumpPower = new Vector2(0, jump);
+            // Debug.Log("ジャンプ");
+            Vector2 jumpPower = new Vector2(0, ParamsSO.Entity.playerJump);
             rb.AddForce(jumpPower, ForceMode2D.Impulse);
             isJump = false;
         }
@@ -95,9 +92,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Finish"))
         {
-            // ゴール
-            Debug.Log("ゴール");
-            isFinish = true;
+            Finish();
         }
     }
 
@@ -107,6 +102,15 @@ public class Player : MonoBehaviour
     void Jump()
     {
         isJump = true;
-        Debug.Log("Spaceを押した");
+    }
+
+    /// <summary>
+    ///  ゴール時の処理
+    /// </summary>
+    void Finish()
+    {
+        isFinish = true;
+        Debug.Log("ステージクリア");
+        gameManager.StageClear();
     }
 }
