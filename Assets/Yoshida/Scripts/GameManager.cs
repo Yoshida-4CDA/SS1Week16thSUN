@@ -35,12 +35,14 @@ public class GameManager : MonoBehaviour
     public void StageClear()
     {
         stageClearText.SetActive(true);
-        Invoke("RestartScene", 1.5f);   // 1.5秒後にリスタート
+        // Invoke("RestartScene", 1.5f);   // 1.5秒後にリスタート
     }
 
+    /*
     void RestartScene()
     {
         Scene thisScene = SceneManager.GetActiveScene();    // 現在のシーンを取得
         SceneManager.LoadScene(thisScene.name);
     }
+    */
 }
