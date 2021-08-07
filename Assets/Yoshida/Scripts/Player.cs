@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     [Header("GameManager")]
     [SerializeField] GameManager gameManager = default;
 
-    float axisH;
+    float axisX;    // X軸の値(-1.0 ~ 1.0)
     Rigidbody2D rb;
 
     bool isGround = false;  // 地面に立っているかどうかを判別する変数
@@ -34,18 +34,18 @@ public class Player : MonoBehaviour
             return;
         }
 
+        // 左右キーの入力を取得してX軸の値を変数に代入
         Vector2 inputAxis = context.ReadValue<Vector2>();
-        axisH = inputAxis.x;
-        // Debug.Log($"{axisH}");
+        axisX = inputAxis.x;
 
-        if (axisH > 0)
+        if (axisX > 0)
         {
-            // Debug.Log("右へ移動");
+            // 右へ移動
             transform.localScale = Vector2.one;
         }
-        else if (axisH < 0)
+        else if (axisX < 0)
         {
-            // Debug.Log("左へ移動");
+            // 左へ移動(プレイヤーを反転させる)
             transform.localScale = new Vector2(-1, 1);
         }
     }
@@ -78,10 +78,10 @@ public class Player : MonoBehaviour
         isGround = Physics2D.Linecast(startPos, endPos, groundLayer);
         Debug.DrawLine(startPos, endPos, Color.red);
 
-        if (isGround || axisH != 0)
+        if (isGround || axisX != 0)
         {
             // 地面の上または速度が0ではないなら速度を更新する
-            rb.velocity = new Vector2(ParamsSO.Entity.playerSpeed * axisH, rb.velocity.y);
+            rb.velocity = new Vector2(ParamsSO.Entity.playerSpeed * axisX, rb.velocity.y);
         }
     }
 
@@ -94,10 +94,12 @@ public class Player : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Finish"))
         {
+            // ステージクリア
             Finish();
         }
         if (collision.gameObject.CompareTag("Item"))
         {
+            // アイテムゲット
             collision.gameObject.GetComponent<ItemManager>().GetItem();
         }
         if (collision.gameObject.CompareTag("Enemy"))
@@ -106,13 +108,14 @@ public class Player : MonoBehaviour
 
             if (this.transform.position.y > enemy.transform.position.y)
             {
+                // 上から敵を踏んだらプレイヤーをジャンプさせる
                 rb.velocity = new Vector2(rb.velocity.x, 0);
                 Jump();
                 enemy.DestroyEnemy();
             }
             else
             {
-                Debug.Log("敵にぶつかった");
+                // 横からぶつかったらゲームオーバー
                 PlayerDead();
             }
         }
@@ -127,7 +130,7 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    ///  ゴール時の処理
+    /// ステージクリアの処理
     /// </summary>
     void Finish()
     {
@@ -136,6 +139,9 @@ public class Player : MonoBehaviour
         gameManager.StageClear();
     }
 
+    /// <summary>
+    /// ゲームオーバーの処理
+    /// </summary>
     public void PlayerDead()
     {
         isDead = true;

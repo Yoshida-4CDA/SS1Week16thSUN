@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
+    /// <summary>
+    /// “G‚Ìis•ûŒü
+    /// </summary>
     public enum DIRECTION
     {
         STOP,
@@ -14,7 +17,7 @@ public class EnemyManager : MonoBehaviour
     DIRECTION direction = DIRECTION.LEFT;
 
     Rigidbody2D rb;
-    float speed;
+    float speed;    // ˆÚ“®ƒXƒs[ƒh
 
     void Start()
     {
@@ -34,14 +37,14 @@ public class EnemyManager : MonoBehaviour
     {
         switch (direction)
         {
-            case DIRECTION.STOP:
+            case DIRECTION.STOP:                    // ’â~
                 speed = 0;
                 break;
-            case DIRECTION.RIGHT:
+            case DIRECTION.RIGHT:                   // ‰E‚ÉˆÚ“®
                 speed = ParamsSO.Entity.enemySpeed;
                 transform.localScale = new Vector3(-1, 1, 1);
                 break;
-            case DIRECTION.LEFT:
+            case DIRECTION.LEFT:                    // ¶‚ÉˆÚ“®
                 speed = ParamsSO.Entity.enemySpeed * -1;
                 transform.localScale = new Vector3(1, 1, 1);
                 break;
@@ -53,6 +56,7 @@ public class EnemyManager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Tree") || collision.gameObject.CompareTag("Enemy"))
         {
+            // –Ø‚à‚µ‚­‚Í“G“¯m‚Ô‚Â‚©‚Á‚½‚çŒü‚«‚ğ”½“]‚³‚¹‚é
             ChangeDirection();
         }
     }
@@ -72,6 +76,9 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// “G‚ğÁ‚·
+    /// </summary>
     public void DestroyEnemy()
     {
         Destroy(this.gameObject);

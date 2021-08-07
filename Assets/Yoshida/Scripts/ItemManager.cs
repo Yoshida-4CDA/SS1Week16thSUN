@@ -8,7 +8,6 @@ public class ItemManager : MonoBehaviour
 
     void Start()
     {
-        // ヒエラルキー上からGameManagerを見つけてGameManagerコンポーネントを取得してgameManagerに代入
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
@@ -16,12 +15,16 @@ public class ItemManager : MonoBehaviour
     {
     }
 
+    /// <summary>
+    /// アイテムゲット時の処理
+    /// </summary>
     public void GetItem()
     {
         if (this.gameObject.CompareTag("Item"))
         {
+            // 水分ゲージを回復する
             Debug.Log("アイテムゲット");
-            gameManager.AddWaterValue(ParamsSO.Entity.recoverValue);
+            gameManager.RecoverWaterValue(ParamsSO.Entity.recoverValue);
             Destroy(gameObject);
         }
     }
