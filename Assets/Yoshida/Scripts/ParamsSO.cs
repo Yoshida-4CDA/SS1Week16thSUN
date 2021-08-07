@@ -15,6 +15,9 @@ public class ParamsSO : ScriptableObject
     [Range(1, 100)]
     public float waterMaxValue;
 
+    [Header("アイテムの回復量")]
+    public int recoverValue;
+
     [Header("敵の移動スピード")]
     public float enemySpeed;
 

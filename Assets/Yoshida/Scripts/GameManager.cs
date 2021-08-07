@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -26,7 +25,7 @@ public class GameManager : MonoBehaviour
     float waterMinValue;
     float waterValue;
 
-    // IEnumerator updateWaterSliderValue;
+    public IEnumerator updateWaterValue;
 
     void Start()
     {
@@ -37,6 +36,8 @@ public class GameManager : MonoBehaviour
 
         waterValue = waterMaxValue;
         waterSlider.value = waterValue;
+
+        updateWaterValue = UpdateWaterValue();
     }
 
     void Update()
@@ -56,25 +57,34 @@ public class GameManager : MonoBehaviour
 
         isStart = true;
 
-        yield return UpdateWaterSliderValue();
+        yield return updateWaterValue;
     }
 
     /// <summary>
     /// êÖï™ÉQÅ[ÉWÇèôÅXÇ…å∏ÇÁÇ∑
     /// </summary>
     /// <returns></returns>
-    IEnumerator UpdateWaterSliderValue()
+    IEnumerator UpdateWaterValue()
     {
         yield return new WaitForSeconds(0.5f);
         while (waterValue > waterMinValue)
         {
             waterValue--;
             waterSlider.value = waterValue;
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.3f);
         }
         if (waterValue <= waterMinValue)
         {
             player.PlayerDead();
+        }
+    }
+
+    public void AddWaterValue(int value)
+    {
+        waterValue += value;
+        if (waterValue > waterMaxValue)
+        {
+            waterValue = waterMaxValue;
         }
     }
 

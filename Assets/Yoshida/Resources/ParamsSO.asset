@@ -15,4 +15,5 @@ MonoBehaviour:
   playerSpeed: 2
   playerJump: 450
   waterMaxValue: 100
+  recoverValue: 15
   enemySpeed: 1.5

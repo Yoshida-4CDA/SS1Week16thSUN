@@ -19,6 +19,7 @@ public class EnemyManager : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
         if (transform.localScale.x != 1)
         {
             direction = DIRECTION.RIGHT;
@@ -50,7 +51,7 @@ public class EnemyManager : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Tree"))
+        if (collision.gameObject.CompareTag("Tree") || collision.gameObject.CompareTag("Enemy"))
         {
             ChangeDirection();
         }

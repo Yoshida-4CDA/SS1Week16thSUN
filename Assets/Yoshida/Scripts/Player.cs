@@ -96,6 +96,10 @@ public class Player : MonoBehaviour
         {
             Finish();
         }
+        if (collision.gameObject.CompareTag("Item"))
+        {
+            collision.gameObject.GetComponent<ItemManager>().GetItem();
+        }
         if (collision.gameObject.CompareTag("Enemy"))
         {
             EnemyManager enemy = collision.gameObject.GetComponent<EnemyManager>();
