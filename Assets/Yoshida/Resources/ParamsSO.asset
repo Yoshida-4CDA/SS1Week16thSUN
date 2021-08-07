@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ParamsSO
   m_EditorClassIdentifier: 
   playerSpeed: 3
-  playerJump: 9
+  playerJump: 450

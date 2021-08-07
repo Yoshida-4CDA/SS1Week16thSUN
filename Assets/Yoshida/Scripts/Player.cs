@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
 
     bool isGround = false;  // 地面に立っているかどうかを判別する変数
     bool isFinish = false;  // ゴールしたかどうかを判別する変数
+    bool isDead = false;    // プレイヤーが死んだかどうかを判別する変数
 
     void Start()
     {
@@ -28,14 +29,14 @@ public class Player : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (isFinish || !gameManager.isStart)
+        if (isFinish || !gameManager.isStart || isDead)
         {
             return;
         }
 
         Vector2 inputAxis = context.ReadValue<Vector2>();
         axisH = inputAxis.x;
-        Debug.Log($"{axisH}");
+        // Debug.Log($"{axisH}");
 
         if (axisH > 0)
         {
@@ -51,7 +52,7 @@ public class Player : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (isFinish || !gameManager.isStart)
+        if (isFinish || !gameManager.isStart || isDead)
         {
             return;
         }
@@ -65,6 +66,11 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (isDead)
+        {
+            return;
+        }
+
         // 地面についているかを判定
         Vector2 startPos = transform.position;
         Vector2 endPos = transform.position - (transform.up * 0.1f);
@@ -81,9 +87,30 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isDead)
+        {
+            return;
+        }
+
         if (collision.gameObject.CompareTag("Finish"))
         {
             Finish();
+        }
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            EnemyManager enemy = collision.gameObject.GetComponent<EnemyManager>();
+
+            if (this.transform.position.y > enemy.transform.position.y)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+                Jump();
+                enemy.DestroyEnemy();
+            }
+            else
+            {
+                Debug.Log("敵にぶつかった");
+                PlayerDead();
+            }
         }
     }
 
@@ -103,5 +130,16 @@ public class Player : MonoBehaviour
         isFinish = true;
         Debug.Log("ステージクリア");
         gameManager.StageClear();
+    }
+
+    void PlayerDead()
+    {
+        isDead = true;
+        rb.velocity = new Vector2(0, 0);
+        rb.AddForce(Vector2.up * ParamsSO.Entity.playerJump);
+
+        CapsuleCollider2D capsuleCollider2D = GetComponent<CapsuleCollider2D>();
+        Destroy(capsuleCollider2D);
+        gameManager.GameOver();
     }
 }
