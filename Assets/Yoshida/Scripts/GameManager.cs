@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
         {
             waterValue--;
             waterSlider.value = waterValue;
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.5f);
         }
         if (waterValue <= waterMinValue)
         {
