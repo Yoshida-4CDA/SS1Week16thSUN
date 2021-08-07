@@ -132,7 +132,7 @@ public class Player : MonoBehaviour
         gameManager.StageClear();
     }
 
-    void PlayerDead()
+    public void PlayerDead()
     {
         isDead = true;
         rb.velocity = new Vector2(0, 0);

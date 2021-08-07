@@ -11,6 +11,10 @@ public class ParamsSO : ScriptableObject
     [Header("プレイヤーのジャンプ力")]
     public float playerJump;
 
+    [Header("水分ゲージの最大値")]
+    [Range(1, 100)]
+    public float waterMaxValue;
+
     [Header("敵の移動スピード")]
     public float enemySpeed;
 

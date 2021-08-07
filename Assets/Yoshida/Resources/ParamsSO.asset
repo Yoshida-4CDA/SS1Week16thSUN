@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ff929830275cf47a80ad9ce12d92e9, type: 3}
   m_Name: ParamsSO
   m_EditorClassIdentifier: 
-  playerSpeed: 3
+  playerSpeed: 2
   playerJump: 450
-  enemySpeed: 1
+  waterMaxValue: 100
+  enemySpeed: 1.5
