@@ -57,8 +57,9 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if (context.performed)
+        if (context.performed && isGround)
         {
+            // 地面の上でSpaceキーが押されたらジャンプさせる
             Jump();
         }
     }
@@ -77,15 +78,6 @@ public class Player : MonoBehaviour
             // 地面の上または速度が0ではないなら速度を更新する
             rb.velocity = new Vector2(ParamsSO.Entity.playerSpeed * axisH, rb.velocity.y);
         }
-
-        if (isGround && isJump)
-        {
-            // 地面の上でSpaceキーが押されたらジャンプさせる
-            // Debug.Log("ジャンプ");
-            Vector2 jumpPower = new Vector2(0, ParamsSO.Entity.playerJump);
-            rb.AddForce(jumpPower, ForceMode2D.Impulse);
-            isJump = false;
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -101,7 +93,8 @@ public class Player : MonoBehaviour
     /// </summary>
     void Jump()
     {
-        isJump = true;
+        Vector2 jumpPower = new Vector2(0, ParamsSO.Entity.playerJump);
+        rb.AddForce(jumpPower, ForceMode2D.Impulse);
     }
 
     /// <summary>
