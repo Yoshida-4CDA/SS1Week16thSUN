@@ -11,6 +11,8 @@ public class ParamsSO : ScriptableObject
     [Header("プレイヤーのジャンプ力")]
     public float playerJump;
 
+    [Header("敵の移動スピード")]
+    public float enemySpeed;
 
     // ParamsSOが保存してある場所のパス
     public const string PATH = "ParamsSO";

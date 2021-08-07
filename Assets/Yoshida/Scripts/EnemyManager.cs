@@ -15,6 +15,11 @@ public class EnemyManager : MonoBehaviour
     {
     }
 
+    void FixedUpdate()
+    {
+        rb.velocity = new Vector2(ParamsSO.Entity.enemySpeed * -1, rb.velocity.y);
+    }
+
     public void DestroyEnemy()
     {
         Destroy(this.gameObject);
