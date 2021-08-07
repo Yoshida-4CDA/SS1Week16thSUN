@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     [Header("ゲームスタートのテキスト")]
     [SerializeField] GameObject startText = default;
 
+    [Header("ゲームオーバーのテキスト")]
+    [SerializeField] GameObject gameOverText = default;
+
     [Header("ステージクリアのテキスト")]
     [SerializeField] GameObject stageClearText = default;
 
@@ -35,14 +38,10 @@ public class GameManager : MonoBehaviour
     public void StageClear()
     {
         stageClearText.SetActive(true);
-        // Invoke("RestartScene", 1.5f);   // 1.5秒後にリスタート
     }
 
-    /*
-    void RestartScene()
+    public void GameOver()
     {
-        Scene thisScene = SceneManager.GetActiveScene();    // 現在のシーンを取得
-        SceneManager.LoadScene(thisScene.name);
+        gameOverText.SetActive(true);
     }
-    */
 }

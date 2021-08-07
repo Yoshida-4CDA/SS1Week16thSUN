@@ -14,7 +14,6 @@ public class Player : MonoBehaviour
     float axisH;
     Rigidbody2D rb;
 
-    bool isJump = false;    // ジャンプ中かどうかを判別する変数
     bool isGround = false;  // 地面に立っているかどうかを判別する変数
     bool isFinish = false;  // ゴールしたかどうかを判別する変数
 
@@ -93,8 +92,7 @@ public class Player : MonoBehaviour
     /// </summary>
     void Jump()
     {
-        Vector2 jumpPower = new Vector2(0, ParamsSO.Entity.playerJump);
-        rb.AddForce(jumpPower, ForceMode2D.Impulse);
+        rb.AddForce(Vector2.up * ParamsSO.Entity.playerJump);
     }
 
     /// <summary>
