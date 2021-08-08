@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         startText.SetActive(false);
         isStart = true;
+        Debug.Log("ゲームスタート");
 
         // コルーチン呼び出し
         yield return updateWaterValue;
@@ -68,7 +69,7 @@ public class GameManager : MonoBehaviour
     IEnumerator UpdateWaterValue()
     {
         yield return new WaitForSeconds(1f);
-        Debug.Log("減少開始");
+        Debug.Log("水分ゲージの減少開始");
         while (currentWaterValue > 0)
         {
             yield return new WaitForSeconds(2f);
@@ -90,7 +91,7 @@ public class GameManager : MonoBehaviour
     /// <param name="value">回復量</param>
     public void RecoverWaterValue(int value)
     {
-        Debug.Log("回復");
+        Debug.Log("水分ゲージを回復");
         currentWaterValue += value;
         if (currentWaterValue > waterMaxValue)
         {
