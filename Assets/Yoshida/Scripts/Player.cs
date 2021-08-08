@@ -11,20 +11,32 @@ public class Player : MonoBehaviour
     [Header("GameManager")]
     [SerializeField] GameManager gameManager = default;
 
+    /// <summary>
+    /// プレイヤーの進行方向
+    /// </summary>
+    public enum DIRECTION
+    {
+        STOP,
+        RIGHT,
+        LEFT
+    }
+
     float axisX;    // X軸の値(-1.0 ~ 1.0)
     Rigidbody2D rb;
 
-    bool isGround = false;  // 地面に立っているかどうかを判別する変数
+    //
+    Animator animator;
+    // 
+
     bool isFinish = false;  // ゴールしたかどうかを判別する変数
     bool isDead = false;    // プレイヤーが死んだかどうかを判別する変数
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-    }
-
-    void Update()
-    {
+        // 
+        animator = GetComponent<Animator>();
+        // 
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -37,6 +49,10 @@ public class Player : MonoBehaviour
         // 左右キーの入力を取得してX軸の値を変数に代入
         Vector2 inputAxis = context.ReadValue<Vector2>();
         axisX = inputAxis.x;
+
+        // 
+        animator.SetFloat("speed", Mathf.Abs(axisX));
+        //
 
         if (axisX > 0)
         {
@@ -57,7 +73,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if (context.performed && isGround)
+        if (context.performed && IsGround())
         {
             // 地面の上でSpaceキーが押されたらジャンプさせる
             Jump();
@@ -71,18 +87,26 @@ public class Player : MonoBehaviour
             return;
         }
 
-        // 地面についているかを判定
-        Vector2 startPos = transform.position;
-        Vector2 endPos = transform.position - (transform.up * 0.1f);
-
-        isGround = Physics2D.Linecast(startPos, endPos, groundLayer);
-        Debug.DrawLine(startPos, endPos, Color.red);
-
-        if (isGround || axisX != 0)
+        if (IsGround() || axisX != 0)
         {
             // 地面の上または速度が0ではないなら速度を更新する
             rb.velocity = new Vector2(ParamsSO.Entity.playerSpeed * axisX, rb.velocity.y);
         }
+
+        Debug.Log(IsGround());
+    }
+
+    /// <summary>
+    /// 地面についているかを判定
+    /// </summary>
+    /// <returns></returns>
+    bool IsGround()
+    {
+        Vector3 startPos = transform.position - (transform.up * 2.8f);
+        Vector3 endPos = startPos - transform.up * 0.1f;
+        Debug.DrawLine(startPos, endPos, Color.red);
+
+        return Physics2D.Linecast(startPos, endPos, groundLayer);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
