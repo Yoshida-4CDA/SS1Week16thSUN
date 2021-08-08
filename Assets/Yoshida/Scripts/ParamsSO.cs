@@ -13,7 +13,10 @@ public class ParamsSO : ScriptableObject
 
     [Header("水分ゲージの最大値")]
     [Range(1, 100)]
-    public float waterMaxValue;
+    public int waterGaugeMaxValue;
+
+    [Header("水分ゲージの減少量")]
+    public float waterThirstyValue;
 
     [Header("アイテムの回復量")]
     public int recoverValue;

@@ -14,7 +14,7 @@ public class EnemyManager : MonoBehaviour
         LEFT
     }
 
-    DIRECTION direction = DIRECTION.LEFT;
+    DIRECTION enemyDirection = DIRECTION.LEFT;
 
     Rigidbody2D rb;
     float speed;    // 移動スピード
@@ -25,7 +25,7 @@ public class EnemyManager : MonoBehaviour
 
         if (transform.localScale.x != 1)
         {
-            direction = DIRECTION.RIGHT;
+            enemyDirection = DIRECTION.RIGHT;
         }
     }
 
@@ -35,7 +35,7 @@ public class EnemyManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        switch (direction)
+        switch (enemyDirection)
         {
             case DIRECTION.STOP:                    // 停止
                 speed = 0;
@@ -66,13 +66,13 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     void ChangeDirection()
     {
-        if (direction == DIRECTION.RIGHT)      // 右⇒左
+        if (enemyDirection == DIRECTION.RIGHT)      // 右⇒左
         {
-            direction = DIRECTION.LEFT;
+            enemyDirection = DIRECTION.LEFT;
         }
-        else if (direction == DIRECTION.LEFT)  // 左⇒右
+        else if (enemyDirection == DIRECTION.LEFT)  // 左⇒右
         {
-            direction = DIRECTION.RIGHT;
+            enemyDirection = DIRECTION.RIGHT;
         }
     }
 

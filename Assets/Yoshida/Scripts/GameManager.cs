@@ -15,29 +15,27 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject stageClearText = default;
 
     [Header("水分ゲージ")]
-    [SerializeField] Slider waterSlider = default;
+    [SerializeField] Image waterGauge = default;
 
     [Header("Player")]
     [SerializeField] Player player = default;
 
     public bool isStart;    // ゲームがスタートしたかどうかを判別する変数
-
-    float waterMaxValue;    // 水分ゲージの最大値
-    float waterMinValue;    // 水分ゲージの最小値
-    float waterValue;       // 水分ゲージの値
+    
+    float waterMaxValue;        // 水分ゲージの最大値
+    float currentWaterValue;    // 現在の水分ゲージの値
 
     // コルーチンを代入する変数
-    IEnumerator updateWaterValue;
+    public IEnumerator updateWaterValue;
 
     void Start()
     {
         StartCoroutine(GameStart());
 
         // 水分ゲージの初期化
-        waterMaxValue = ParamsSO.Entity.waterMaxValue;
-        waterMinValue = waterSlider.minValue;
-        waterValue = waterMaxValue;
-        waterSlider.value = waterValue;
+        waterMaxValue = ParamsSO.Entity.waterGaugeMaxValue;
+        currentWaterValue = waterMaxValue;
+        waterGauge.fillAmount = currentWaterValue / waterMaxValue;
 
         // コルーチンを変数に代入 => コルーチンの処理を途中で停止させるため
         updateWaterValue = UpdateWaterValue();
@@ -69,15 +67,17 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     IEnumerator UpdateWaterValue()
     {
-        yield return new WaitForSeconds(0.5f);
-        while (waterValue > waterMinValue)
+        yield return new WaitForSeconds(1f);
+        Debug.Log("減少開始");
+        while (currentWaterValue > 0)
         {
-            // ゲージを減らす
-            waterValue--;
-            waterSlider.value = waterValue;
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(2f);
+            currentWaterValue -= ParamsSO.Entity.waterThirstyValue;
+            waterGauge.fillAmount = currentWaterValue / waterMaxValue;
+            Debug.Log($"{currentWaterValue}");
+            yield return null;
         }
-        if (waterValue <= waterMinValue)
+        if (currentWaterValue <= 0)
         {
             // 0になったらゲームオーバー
             player.PlayerDead();
@@ -90,11 +90,14 @@ public class GameManager : MonoBehaviour
     /// <param name="value">回復量</param>
     public void RecoverWaterValue(int value)
     {
-        waterValue += value;
-        if (waterValue > waterMaxValue)
+        Debug.Log("回復");
+        currentWaterValue += value;
+        if (currentWaterValue > waterMaxValue)
         {
-            waterValue = waterMaxValue;
+            currentWaterValue = waterMaxValue;
         }
+        waterGauge.fillAmount = currentWaterValue / waterMaxValue;
+        Debug.Log(currentWaterValue);
     }
 
     /// <summary>

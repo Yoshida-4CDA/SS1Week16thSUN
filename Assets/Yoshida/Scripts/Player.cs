@@ -21,7 +21,10 @@ public class Player : MonoBehaviour
         LEFT
     }
 
+    DIRECTION playerDirection = DIRECTION.STOP;
+
     float axisX;    // X軸の値(-1.0 ~ 1.0)
+    Vector2 playerScale;
     Rigidbody2D rb;
 
     //
@@ -34,6 +37,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerScale = transform.localScale;
         // 
         animator = GetComponent<Animator>();
         // 
@@ -52,18 +56,39 @@ public class Player : MonoBehaviour
 
         // 
         animator.SetFloat("speed", Mathf.Abs(axisX));
+        // Debug.Log(Mathf.Abs(axisX));
         //
 
-        if (axisX > 0)
+        if (axisX == 0)
         {
-            // 右へ移動
-            transform.localScale = Vector2.one;
+            // 停止している
+            playerDirection = DIRECTION.STOP;
+        }
+        else if (axisX > 0)
+        {
+            // 右を向いている
+            playerDirection = DIRECTION.RIGHT;
         }
         else if (axisX < 0)
         {
-            // 左へ移動(プレイヤーを反転させる)
-            transform.localScale = new Vector2(-1, 1);
+            // 左を向いている
+            playerDirection = DIRECTION.LEFT;
         }
+
+        switch (playerDirection)
+        {
+            case DIRECTION.STOP:
+                break;
+            case DIRECTION.RIGHT:
+                transform.localScale = new Vector2(playerScale.x, playerScale.y);
+                break;
+            case DIRECTION.LEFT:
+                transform.localScale = new Vector2(playerScale.x * -1, playerScale.y);
+                break;
+        }
+
+        float xSpeed = ParamsSO.Entity.playerSpeed * axisX;
+        rb.velocity = new Vector2(xSpeed, rb.velocity.y);
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -86,14 +111,7 @@ public class Player : MonoBehaviour
         {
             return;
         }
-
-        if (IsGround() || axisX != 0)
-        {
-            // 地面の上または速度が0ではないなら速度を更新する
-            rb.velocity = new Vector2(ParamsSO.Entity.playerSpeed * axisX, rb.velocity.y);
-        }
-
-        Debug.Log(IsGround());
+        // Debug.Log(IsGround());
     }
 
     /// <summary>
@@ -102,7 +120,7 @@ public class Player : MonoBehaviour
     /// <returns></returns>
     bool IsGround()
     {
-        Vector3 startPos = transform.position - (transform.up * 2.8f);
+        Vector3 startPos = transform.position - (transform.up * 1.15f);
         Vector3 endPos = startPos - transform.up * 0.1f;
         Debug.DrawLine(startPos, endPos, Color.red);
 
@@ -130,7 +148,7 @@ public class Player : MonoBehaviour
         {
             EnemyManager enemy = collision.gameObject.GetComponent<EnemyManager>();
 
-            if (this.transform.position.y > enemy.transform.position.y)
+            if (this.transform.position.y - 1.3f > enemy.transform.position.y)
             {
                 // 上から敵を踏んだらプレイヤーをジャンプさせる
                 rb.velocity = new Vector2(rb.velocity.x, 0);
@@ -159,6 +177,8 @@ public class Player : MonoBehaviour
     void Finish()
     {
         isFinish = true;
+        rb.velocity = new Vector2(0, 0);
+        animator.SetFloat("speed", Mathf.Abs(0));
         Debug.Log("ステージクリア");
         gameManager.StageClear();
     }
