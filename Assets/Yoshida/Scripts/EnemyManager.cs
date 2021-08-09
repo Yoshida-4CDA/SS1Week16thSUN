@@ -50,7 +50,7 @@ public class EnemyManager : MonoBehaviour
 
     void Update()
     {
-        IsPlayer();
+        // IsPlayer();
     }
 
     void FixedUpdate()
