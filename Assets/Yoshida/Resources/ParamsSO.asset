@@ -15,7 +15,7 @@ MonoBehaviour:
   playerSpeed: 2.5
   playerJump: 450
   playerDistanceToEnemy:
-  - 2
+  - 1.8
   - 1.25
   - 0.75
   playerDistanceToGround: 1.45
@@ -23,7 +23,7 @@ MonoBehaviour:
   waterThirstyValue: 10
   recoverValue: 50
   enemySpeed:
-  - 2.5
+  - 1
   - 2
   - 1.2
   enemyScale:

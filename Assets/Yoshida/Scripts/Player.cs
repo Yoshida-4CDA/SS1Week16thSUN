@@ -32,6 +32,10 @@ public class Player : MonoBehaviour
     bool isFinish = false;  // ゴールしたかどうかを判別する変数
     bool isDead = false;    // プレイヤーが死んだかどうかを判別する変数
 
+    // 
+    bool isDamage;          // ダメージを受けているか
+    // 
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -42,7 +46,7 @@ public class Player : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (isFinish || !gameManager.isStart || isDead)
+        if (isFinish || !gameManager.isStart || isDead || isDamage)
         {
             return;
         }
@@ -87,7 +91,7 @@ public class Player : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (isFinish || !gameManager.isStart || isDead)
+        if (isFinish || !gameManager.isStart || isDead || isDamage)
         {
             return;
         }
@@ -101,10 +105,6 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isDead)
-        {
-            return;
-        }
     }
 
     /// <summary>
@@ -150,8 +150,17 @@ public class Player : MonoBehaviour
             }
             else
             {
+                if (isDamage)
+                {
+                    return;
+                }
+                // ぶつかったらダメージを受ける
+                StartCoroutine(OnDamage(collision.gameObject));
+
+                /*
                 // 横からぶつかったらゲームオーバー
-                PlayerDead();
+                // PlayerDead();
+                */
             }
         }
     }
@@ -162,6 +171,7 @@ public class Player : MonoBehaviour
     void Jump()
     {
         rb.AddForce(Vector2.up * ParamsSO.Entity.playerJump);
+        animator.SetTrigger("jump");
     }
 
     /// <summary>
@@ -182,11 +192,35 @@ public class Player : MonoBehaviour
     public void PlayerDead()
     {
         isDead = true;
+        animator.SetTrigger("die");
         rb.velocity = new Vector2(0, 0);
         rb.AddForce(Vector2.up * ParamsSO.Entity.playerJump);
 
         CapsuleCollider2D capsuleCollider2D = GetComponent<CapsuleCollider2D>();
         Destroy(capsuleCollider2D);
         gameManager.GameOver();
+    }
+
+    IEnumerator OnDamage(GameObject enemy)
+    {
+        isDamage = true;
+        Debug.Log(isDamage);
+
+        // Hitアニメーションに切り替える
+        animator.SetTrigger("hit");
+
+        // 一旦移動を止める 
+        rb.velocity = Vector2.zero;
+        animator.SetFloat("speed", Mathf.Abs(0));
+
+        // 敵と反対方向にノックバック
+        Vector3 v = (transform.position - enemy.transform.position).normalized;
+        rb.AddForce(new Vector2(v.x * 2, 0), ForceMode2D.Impulse);
+
+        yield return new WaitForSeconds(0.5f);
+
+        rb.velocity = Vector2.zero;
+        isDamage = false;
+        Debug.Log(isDamage);
     }
 }

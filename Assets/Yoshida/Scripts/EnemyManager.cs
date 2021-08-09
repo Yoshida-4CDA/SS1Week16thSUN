@@ -84,6 +84,15 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            // ƒvƒŒƒCƒ„[‚É‚Ô‚Â‚©‚Á‚½‚çŒü‚«‚ğ”½“]‚³‚¹‚é
+            ChangeDirection();
+        }
+    }
+
     bool IsGround()
     {
         Vector3 startVec = transform.position - (transform.up * ParamsSO.Entity.enemyDistanceToGround[(int)enemyType]);
