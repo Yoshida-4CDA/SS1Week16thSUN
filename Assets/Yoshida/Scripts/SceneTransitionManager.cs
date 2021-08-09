@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,7 +12,7 @@ public class SceneTransitionManager : MonoBehaviour
 
     public void OnClickRetry()
     {
-        Scene thisScene = SceneManager.GetActiveScene();    // Œ»İ‚ÌƒV[ƒ“‚ğæ“¾
+        Scene thisScene = SceneManager.GetActiveScene();    // ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ã‚’å–å¾—
         SceneManager.LoadScene(thisScene.name);
     }
 }

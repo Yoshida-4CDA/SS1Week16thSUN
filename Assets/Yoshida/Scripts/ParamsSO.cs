@@ -1,68 +1,68 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
 public class ParamsSO : ScriptableObject
 {
-    [Header("ƒvƒŒƒCƒ„[‚ÌˆÚ“®ƒXƒs[ƒh")]
+    [Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç§»å‹•ã‚¹ãƒ”ãƒ¼ãƒ‰")]
     public float playerSpeed;
 
-    [Header("ƒvƒŒƒCƒ„[‚ÌƒWƒƒƒ“ƒv—Í")]
+    [Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¸ãƒ£ãƒ³ãƒ—åŠ›")]
     public float playerJump;
 
-    [Header("“G‚ğ“¥‚ß‚é‚©‚Ç‚¤‚©‚Ì”»’è‹——£")]
-    [Tooltip("0 = ƒ~ƒCƒ‰, 1 = ƒTƒ\ƒŠ, 2 = ƒwƒr")]
+    [Header("æ•µã‚’è¸ã‚ã‚‹ã‹ã©ã†ã‹ã®åˆ¤å®šè·é›¢")]
+    [Tooltip("0 = ãƒŸã‚¤ãƒ©, 1 = ã‚µã‚½ãƒª, 2 = ãƒ˜ãƒ“")]
     public float[] playerDistanceToEnemy;
 
-    [Header("’n–Ê‚Ü‚Å‚Ì”»’è‹——£(ƒvƒŒƒCƒ„[)")]
+    [Header("åœ°é¢ã¾ã§ã®åˆ¤å®šè·é›¢(ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼)")]
     public float playerDistanceToGround;
 
-    [Header("ƒvƒŒƒCƒ„[‚ÌMaxHP")]
+    [Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®MaxHP")]
     [Range(1, 100)]
     public int maxHpGaugeValue;
 
-    [Header("“G‚©‚çó‚¯‚éƒ_ƒ[ƒW")]
-    [Tooltip("0 = ƒ~ƒCƒ‰, 1 = ƒTƒ\ƒŠ, 2 = ƒwƒr")]
+    [Header("æ•µã‹ã‚‰å—ã‘ã‚‹ãƒ€ãƒ¡ãƒ¼ã‚¸")]
+    [Tooltip("0 = ãƒŸã‚¤ãƒ©, 1 = ã‚µã‚½ãƒª, 2 = ãƒ˜ãƒ“")]
     public float[] playerDamege;
 
-    [Header("…•ªƒQ[ƒW‚ÌÅ‘å’l")]
+    [Header("æ°´åˆ†ã‚²ãƒ¼ã‚¸ã®æœ€å¤§å€¤")]
     [Range(1, 100)]
     public int maxWaterGaugeValue;
 
-    [Header("…•ªƒQ[ƒW‚ÌŒ¸­—Ê")]
+    [Header("æ°´åˆ†ã‚²ãƒ¼ã‚¸ã®æ¸›å°‘é‡")]
     public float waterThirstyValue;
 
-    [Header("ƒAƒCƒeƒ€‚Ì‰ñ•œ—Ê")]
+    [Header("ã‚¢ã‚¤ãƒ†ãƒ ã®å›å¾©é‡")]
     public int recoverValue;
 
-    [Header("“G‚ÌˆÚ“®ƒXƒs[ƒh")]
-    [Tooltip("0 = ƒ~ƒCƒ‰, 1 = ƒTƒ\ƒŠ, 2 = ƒwƒr")]
+    [Header("æ•µã®ç§»å‹•ã‚¹ãƒ”ãƒ¼ãƒ‰")]
+    [Tooltip("0 = ãƒŸã‚¤ãƒ©, 1 = ã‚µã‚½ãƒª, 2 = ãƒ˜ãƒ“")]
     public float[] enemySpeed;
 
-    [Header("“G‚ÌƒTƒCƒY")]
-    [Tooltip("0 = ƒ~ƒCƒ‰, 1 = ƒTƒ\ƒŠ, 2 = ƒwƒr")]
+    [Header("æ•µã®ã‚µã‚¤ã‚º")]
+    [Tooltip("0 = ãƒŸã‚¤ãƒ©, 1 = ã‚µã‚½ãƒª, 2 = ãƒ˜ãƒ“")]
     public float[] enemyScale;
 
-    [Header("’n–Ê‚Ü‚Å‚Ì”»’è‹——£(“G)")]
-    [Tooltip("0 = ƒ~ƒCƒ‰, 1 = ƒTƒ\ƒŠ, 2 = ƒwƒr")]
+    [Header("åœ°é¢ã¾ã§ã®åˆ¤å®šè·é›¢(æ•µ)")]
+    [Tooltip("0 = ãƒŸã‚¤ãƒ©, 1 = ã‚µã‚½ãƒª, 2 = ãƒ˜ãƒ“")]
     public float[] enemyDistanceToGround;
 
-    // ParamsSO‚ª•Û‘¶‚µ‚Ä‚ ‚éêŠ‚ÌƒpƒX
+    // ParamsSOãŒä¿å­˜ã—ã¦ã‚ã‚‹å ´æ‰€ã®ãƒ‘ã‚¹
     public const string PATH = "ParamsSO";
 
-    // ParamsSO‚ÌÀ‘Ì
+    // ParamsSOã®å®Ÿä½“
     private static ParamsSO _entity;
     public static ParamsSO Entity
     {
         get
         {
-            //‰ƒAƒNƒZƒX‚Éƒ[ƒh‚·‚é
+            //åˆã‚¢ã‚¯ã‚»ã‚¹æ™‚ã«ãƒ­ãƒ¼ãƒ‰ã™ã‚‹
             if (_entity == null)
             {
                 _entity = Resources.Load<ParamsSO>(PATH);
 
-                //ƒ[ƒho—ˆ‚È‚©‚Á‚½ê‡‚ÍƒGƒ‰[ƒƒO‚ğ•\¦
+                //ãƒ­ãƒ¼ãƒ‰å‡ºæ¥ãªã‹ã£ãŸå ´åˆã¯ã‚¨ãƒ©ãƒ¼ãƒ­ã‚°ã‚’è¡¨ç¤º
                 if (_entity == null)
                 {
                     Debug.LogError(PATH + " not found");

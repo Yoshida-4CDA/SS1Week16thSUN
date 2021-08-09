@@ -1,11 +1,11 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
     /// <summary>
-    /// “G‚Ìí—Ş
+    /// æ•µã®ç¨®é¡
     /// </summary>
     public enum ENEMY_TYPE
     {
@@ -15,7 +15,7 @@ public class EnemyManager : MonoBehaviour
     }
 
     /// <summary>
-    /// “G‚Ìis•ûŒü
+    /// æ•µã®é€²è¡Œæ–¹å‘
     /// </summary>
     public enum DIRECTION
     {
@@ -24,19 +24,19 @@ public class EnemyManager : MonoBehaviour
         LEFT
     }
 
-    [Header("’n–Ê‚ÌƒŒƒCƒ„[")]
+    [Header("åœ°é¢ã®ãƒ¬ã‚¤ãƒ¤ãƒ¼")]
     [SerializeField] LayerMask groundLayer = default;
 
-    [Header("ƒvƒŒƒCƒ„[‚ÌƒŒƒCƒ„[")]
+    [Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ¬ã‚¤ãƒ¤ãƒ¼")]
     [SerializeField] LayerMask playerLayer = default;
 
-    [Header("“G‚Ìí—Ş")]
+    [Header("æ•µã®ç¨®é¡")]
     public ENEMY_TYPE enemyType;
 
     DIRECTION enemyDirection = DIRECTION.LEFT;
 
     Rigidbody2D rb;
-    float speed;    // ˆÚ“®ƒXƒs[ƒh
+    float speed;    // ç§»å‹•ã‚¹ãƒ”ãƒ¼ãƒ‰
 
     void Start()
     {
@@ -63,14 +63,14 @@ public class EnemyManager : MonoBehaviour
 
         switch (enemyDirection)
         {
-            case DIRECTION.STOP:                    // ’â~
+            case DIRECTION.STOP:                    // åœæ­¢
                 speed = 0;
                 break;
-            case DIRECTION.RIGHT:                   // ‰E‚ÉˆÚ“®
+            case DIRECTION.RIGHT:                   // å³ã«ç§»å‹•
                 speed = enemyMove;
                 transform.localScale = new Vector3(enemySize * -1, enemySize, 1);
                 break;
-            case DIRECTION.LEFT:                    // ¶‚ÉˆÚ“®
+            case DIRECTION.LEFT:                    // å·¦ã«ç§»å‹•
                 speed = enemyMove * -1;
                 transform.localScale = new Vector3(enemySize, enemySize, 1);
                 break;
@@ -82,7 +82,7 @@ public class EnemyManager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            // •Ç‚É‚Ô‚Â‚©‚Á‚½‚çŒü‚«‚ğ”½“]‚³‚¹‚é
+            // å£ã«ã¶ã¤ã‹ã£ãŸã‚‰å‘ãã‚’åè»¢ã•ã›ã‚‹
             ChangeDirection();
         }
     }
@@ -91,7 +91,7 @@ public class EnemyManager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && IsPlayer())
         {
-            // ƒvƒŒƒCƒ„[‚É‚Ô‚Â‚©‚Á‚½‚çŒü‚«‚ğ”½“]‚³‚¹‚é
+            // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«ã¶ã¤ã‹ã£ãŸã‚‰å‘ãã‚’åè»¢ã•ã›ã‚‹
             ChangeDirection();
         }
     }
@@ -114,22 +114,22 @@ public class EnemyManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ˆÚ“®•ûŒü‚ğ”½“]‚³‚¹‚é
+    /// ç§»å‹•æ–¹å‘ã‚’åè»¢ã•ã›ã‚‹
     /// </summary>
     void ChangeDirection()
     {
-        if (enemyDirection == DIRECTION.RIGHT)      // ‰EË¶
+        if (enemyDirection == DIRECTION.RIGHT)      // å³â‡’å·¦
         {
             enemyDirection = DIRECTION.LEFT;
         }
-        else if (enemyDirection == DIRECTION.LEFT)  // ¶Ë‰E
+        else if (enemyDirection == DIRECTION.LEFT)  // å·¦â‡’å³
         {
             enemyDirection = DIRECTION.RIGHT;
         }
     }
 
     /// <summary>
-    /// “G‚ğÁ‚·
+    /// æ•µã‚’æ¶ˆã™
     /// </summary>
     public void DestroyEnemy()
     {

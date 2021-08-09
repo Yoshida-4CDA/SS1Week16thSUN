@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,14 +16,14 @@ public class ItemManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒAƒCƒeƒ€ƒQƒbƒg‚Ìˆ—
+    /// ã‚¢ã‚¤ãƒ†ãƒ ã‚²ãƒƒãƒˆæ™‚ã®å‡¦ç†
     /// </summary>
     public void GetItem()
     {
         if (this.gameObject.CompareTag("Item"))
         {
-            // …•ªƒQ[ƒW‚ğ‰ñ•œ‚·‚é
-            Debug.Log("ƒAƒCƒeƒ€ƒQƒbƒg");
+            // æ°´åˆ†ã‚²ãƒ¼ã‚¸ã‚’å›å¾©ã™ã‚‹
+            Debug.Log("ã‚¢ã‚¤ãƒ†ãƒ ã‚²ãƒƒãƒˆ");
             gameManager.RecoverWaterValue(ParamsSO.Entity.recoverValue);
             Destroy(gameObject);
         }

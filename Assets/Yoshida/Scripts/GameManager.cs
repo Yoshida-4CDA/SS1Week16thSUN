@@ -1,43 +1,43 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("ƒQ[ƒ€ƒXƒ^[ƒg‚ÌƒeƒLƒXƒg")]
+    [Header("ã‚²ãƒ¼ãƒ ã‚¹ã‚¿ãƒ¼ãƒˆã®ãƒ†ã‚­ã‚¹ãƒˆ")]
     [SerializeField] GameObject startText = default;
 
-    [Header("ƒQ[ƒ€ƒI[ƒo[‚ÌƒeƒLƒXƒg")]
+    [Header("ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã®ãƒ†ã‚­ã‚¹ãƒˆ")]
     [SerializeField] GameObject gameOverText = default;
 
-    [Header("ƒXƒe[ƒWƒNƒŠƒA‚ÌƒeƒLƒXƒg")]
+    [Header("ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¯ãƒªã‚¢ã®ãƒ†ã‚­ã‚¹ãƒˆ")]
     [SerializeField] GameObject stageClearText = default;
 
-    [Header("…•ªƒQ[ƒW")]
+    [Header("æ°´åˆ†ã‚²ãƒ¼ã‚¸")]
     [SerializeField] Image waterGauge = default;
 
     [Header("Player")]
     [SerializeField] Player player = default;
 
-    public bool isStart;    // ƒQ[ƒ€‚ªƒXƒ^[ƒg‚µ‚½‚©‚Ç‚¤‚©‚ğ”»•Ê‚·‚é•Ï”
+    public bool isStart;    // ã‚²ãƒ¼ãƒ ãŒã‚¹ã‚¿ãƒ¼ãƒˆã—ãŸã‹ã©ã†ã‹ã‚’åˆ¤åˆ¥ã™ã‚‹å¤‰æ•°
     
-    float maxWaterValue;        // …•ªƒQ[ƒW‚ÌÅ‘å’l
-    float currentWaterValue;    // Œ»İ‚Ì…•ªƒQ[ƒW‚Ì’l
+    float maxWaterValue;        // æ°´åˆ†ã‚²ãƒ¼ã‚¸ã®æœ€å¤§å€¤
+    float currentWaterValue;    // ç¾åœ¨ã®æ°´åˆ†ã‚²ãƒ¼ã‚¸ã®å€¤
 
-    // ƒRƒ‹[ƒ`ƒ“‚ğ‘ã“ü‚·‚é•Ï”
+    // ã‚³ãƒ«ãƒ¼ãƒãƒ³ã‚’ä»£å…¥ã™ã‚‹å¤‰æ•°
     public IEnumerator updateWaterValue;
 
     void Start()
     {
         StartCoroutine(GameStart());
 
-        // …•ªƒQ[ƒW‚Ì‰Šú‰»
+        // æ°´åˆ†ã‚²ãƒ¼ã‚¸ã®åˆæœŸåŒ–
         maxWaterValue = ParamsSO.Entity.maxWaterGaugeValue;
         currentWaterValue = maxWaterValue;
         waterGauge.fillAmount = currentWaterValue / maxWaterValue;
 
-        // ƒRƒ‹[ƒ`ƒ“‚ğ•Ï”‚É‘ã“ü => ƒRƒ‹[ƒ`ƒ“‚Ìˆ—‚ğ“r’†‚Å’â~‚³‚¹‚é‚½‚ß
+        // ã‚³ãƒ«ãƒ¼ãƒãƒ³ã‚’å¤‰æ•°ã«ä»£å…¥ => ã‚³ãƒ«ãƒ¼ãƒãƒ³ã®å‡¦ç†ã‚’é€”ä¸­ã§åœæ­¢ã•ã›ã‚‹ãŸã‚
         updateWaterValue = UpdateWaterValue();
     }
 
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// uSTARTv‚Ì•\¦
+    /// ã€ŒSTARTã€ã®è¡¨ç¤º
     /// </summary>
     /// <returns></returns>
     IEnumerator GameStart()
@@ -56,20 +56,20 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         startText.SetActive(false);
         isStart = true;
-        Debug.Log("ƒQ[ƒ€ƒXƒ^[ƒg");
+        Debug.Log("ã‚²ãƒ¼ãƒ ã‚¹ã‚¿ãƒ¼ãƒˆ");
 
-        // ƒRƒ‹[ƒ`ƒ“ŒÄ‚Ño‚µ
+        // ã‚³ãƒ«ãƒ¼ãƒãƒ³å‘¼ã³å‡ºã—
         yield return updateWaterValue;
     }
 
     /// <summary>
-    /// …•ªƒQ[ƒW‚ğ™X‚ÉŒ¸‚ç‚·
+    /// æ°´åˆ†ã‚²ãƒ¼ã‚¸ã‚’å¾ã€…ã«æ¸›ã‚‰ã™
     /// </summary>
     /// <returns></returns>
     IEnumerator UpdateWaterValue()
     {
         yield return new WaitForSeconds(1f);
-        Debug.Log("…•ªƒQ[ƒW‚ÌŒ¸­ŠJn");
+        Debug.Log("æ°´åˆ†ã‚²ãƒ¼ã‚¸ã®æ¸›å°‘é–‹å§‹");
         while (currentWaterValue > 0)
         {
             yield return new WaitForSeconds(2f);
@@ -80,18 +80,18 @@ public class GameManager : MonoBehaviour
         }
         if (currentWaterValue <= 0)
         {
-            // 0‚É‚È‚Á‚½‚çƒQ[ƒ€ƒI[ƒo[
+            // 0ã«ãªã£ãŸã‚‰ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼
             player.PlayerDead();
         }
     }
 
     /// <summary>
-    /// …•ªƒQ[ƒW‚Ì‰ñ•œ
+    /// æ°´åˆ†ã‚²ãƒ¼ã‚¸ã®å›å¾©
     /// </summary>
-    /// <param name="value">‰ñ•œ—Ê</param>
+    /// <param name="value">å›å¾©é‡</param>
     public void RecoverWaterValue(int value)
     {
-        Debug.Log("…•ªƒQ[ƒW‚ğ‰ñ•œ");
+        Debug.Log("æ°´åˆ†ã‚²ãƒ¼ã‚¸ã‚’å›å¾©");
         currentWaterValue += value;
         if (currentWaterValue > maxWaterValue)
         {
@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒXƒe[ƒWƒNƒŠƒA
+    /// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¯ãƒªã‚¢
     /// </summary>
     public void StageClear()
     {
@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒQ[ƒ€ƒI[ƒo[
+    /// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼
     /// </summary>
     public void GameOver()
     {

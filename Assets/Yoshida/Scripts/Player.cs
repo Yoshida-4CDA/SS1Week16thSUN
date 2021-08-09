@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,17 +6,17 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    [Header("’n–Ê‚ÌƒŒƒCƒ„[")]
+    [Header("åœ°é¢ã®ãƒ¬ã‚¤ãƒ¤ãƒ¼")]
     [SerializeField] LayerMask groundLayer = default;
 
     [Header("GameManager")]
     [SerializeField] GameManager gameManager = default;
 
-    [Header("HPƒQ[ƒW")]
+    [Header("HPã‚²ãƒ¼ã‚¸")]
     [SerializeField] Image hpGauge = default;
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Ìis•ûŒü
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®é€²è¡Œæ–¹å‘
     /// </summary>
     public enum DIRECTION
     {
@@ -27,18 +27,18 @@ public class Player : MonoBehaviour
 
     DIRECTION playerDirection = DIRECTION.STOP;
 
-    float axisX;    // X²‚Ì’l(-1.0 ~ 1.0)
+    float axisX;    // Xè»¸ã®å€¤(-1.0 ~ 1.0)
     static float defaultScale = 0.5f;
     Rigidbody2D rb;
 
     Animator animator;
 
-    float maxHp;        // HPƒQ[ƒW‚ÌÅ‘å’l
-    float currentHp;    // Œ»İ‚ÌHP
+    float maxHp;        // HPã‚²ãƒ¼ã‚¸ã®æœ€å¤§å€¤
+    float currentHp;    // ç¾åœ¨ã®HP
 
-    bool isFinish = false;  // ƒS[ƒ‹‚µ‚½‚©‚Ç‚¤‚©‚ğ”»•Ê‚·‚é•Ï”
-    bool isDead = false;    // ƒvƒŒƒCƒ„[‚ª€‚ñ‚¾‚©‚Ç‚¤‚©‚ğ”»•Ê‚·‚é•Ï”
-    bool isDamage;          // ƒ_ƒ[ƒW‚ğó‚¯‚Ä‚¢‚é‚©‚Ç‚¤‚©‚ğ”»•Ê‚·‚é•Ï”
+    bool isFinish = false;  // ã‚´ãƒ¼ãƒ«ã—ãŸã‹ã©ã†ã‹ã‚’åˆ¤åˆ¥ã™ã‚‹å¤‰æ•°
+    bool isDead = false;    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæ­»ã‚“ã ã‹ã©ã†ã‹ã‚’åˆ¤åˆ¥ã™ã‚‹å¤‰æ•°
+    bool isDamage;          // ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ã¦ã„ã‚‹ã‹ã©ã†ã‹ã‚’åˆ¤åˆ¥ã™ã‚‹å¤‰æ•°
 
     void Start()
     {
@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
 
         animator = GetComponent<Animator>();
 
-        // HPƒQ[ƒW‚Ì‰Šú‰»
+        // HPã‚²ãƒ¼ã‚¸ã®åˆæœŸåŒ–
         maxHp = ParamsSO.Entity.maxHpGaugeValue;
         currentHp = maxHp;
         hpGauge.fillAmount = currentHp / maxHp;
@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        // ¶‰EƒL[‚Ì“ü—Í‚ğæ“¾‚µ‚ÄX²‚Ì’l‚ğ•Ï”‚É‘ã“ü
+        // å·¦å³ã‚­ãƒ¼ã®å…¥åŠ›ã‚’å–å¾—ã—ã¦Xè»¸ã®å€¤ã‚’å¤‰æ•°ã«ä»£å…¥
         Vector2 inputAxis = context.ReadValue<Vector2>();
         axisX = inputAxis.x;
 
@@ -68,17 +68,17 @@ public class Player : MonoBehaviour
 
         if (axisX == 0)
         {
-            // ’â~‚µ‚Ä‚¢‚é
+            // åœæ­¢ã—ã¦ã„ã‚‹
             playerDirection = DIRECTION.STOP;
         }
         else if (axisX > 0)
         {
-            // ‰E‚ğŒü‚¢‚Ä‚¢‚é
+            // å³ã‚’å‘ã„ã¦ã„ã‚‹
             playerDirection = DIRECTION.RIGHT;
         }
         else if (axisX < 0)
         {
-            // ¶‚ğŒü‚¢‚Ä‚¢‚é
+            // å·¦ã‚’å‘ã„ã¦ã„ã‚‹
             playerDirection = DIRECTION.LEFT;
         }
 
@@ -107,7 +107,7 @@ public class Player : MonoBehaviour
 
         if (context.performed && IsGround())
         {
-            // ’n–Ê‚Ìã‚ÅSpaceƒL[‚ª‰Ÿ‚³‚ê‚½‚çƒWƒƒƒ“ƒv‚³‚¹‚é
+            // åœ°é¢ã®ä¸Šã§Spaceã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã‚‰ã‚¸ãƒ£ãƒ³ãƒ—ã•ã›ã‚‹
             Jump();
         }
     }
@@ -117,7 +117,7 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// ’n–Ê‚É‚Â‚¢‚Ä‚¢‚é‚©‚ğ”»’è
+    /// åœ°é¢ã«ã¤ã„ã¦ã„ã‚‹ã‹ã‚’åˆ¤å®š
     /// </summary>
     /// <returns></returns>
     bool IsGround()
@@ -138,12 +138,12 @@ public class Player : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Finish"))
         {
-            // ƒXƒe[ƒWƒNƒŠƒA
+            // ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¯ãƒªã‚¢
             Finish();
         }
         if (collision.gameObject.CompareTag("Item"))
         {
-            // ƒAƒCƒeƒ€ƒQƒbƒg
+            // ã‚¢ã‚¤ãƒ†ãƒ ã‚²ãƒƒãƒˆ
             collision.gameObject.GetComponent<ItemManager>().GetItem();
         }
         if (collision.gameObject.CompareTag("Enemy"))
@@ -156,7 +156,7 @@ public class Player : MonoBehaviour
 
             if (this.transform.position.y - ParamsSO.Entity.playerDistanceToEnemy[(int)enemy.enemyType] > enemy.transform.position.y)
             {
-                // ã‚©‚ç“G‚ğ“¥‚ñ‚¾‚çƒvƒŒƒCƒ„[‚ğƒWƒƒƒ“ƒv‚³‚¹‚é
+                // ä¸Šã‹ã‚‰æ•µã‚’è¸ã‚“ã ã‚‰ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ã‚¸ãƒ£ãƒ³ãƒ—ã•ã›ã‚‹
                 rb.velocity = new Vector2(rb.velocity.x, 0);
                 Jump();
                 enemy.DestroyEnemy();
@@ -167,12 +167,12 @@ public class Player : MonoBehaviour
                 {
                     return;
                 }
-                // ‚Ô‚Â‚©‚Á‚½‚çƒ_ƒ[ƒW‚ğó‚¯‚é(“G‚²‚Æ‚Éó‚¯‚éƒ_ƒ[ƒW—Ê‚ªˆá‚¤)
+                // ã¶ã¤ã‹ã£ãŸã‚‰ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ã‚‹(æ•µã”ã¨ã«å—ã‘ã‚‹ãƒ€ãƒ¡ãƒ¼ã‚¸é‡ãŒé•ã†)
                 StartCoroutine(OnDamage(collision.gameObject, ParamsSO.Entity.playerDamege[(int)enemy.enemyType]));
 
                 if (currentHp <= 0)
                 {
-                    // ‘Ì—Í‚ª0‚É‚È‚Á‚½‚çƒQ[ƒ€ƒI[ƒo[
+                    // ä½“åŠ›ãŒ0ã«ãªã£ãŸã‚‰ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼
                     PlayerDead();
                 }
             }
@@ -180,7 +180,7 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒWƒƒƒ“ƒv‚·‚é
+    /// ã‚¸ãƒ£ãƒ³ãƒ—ã™ã‚‹
     /// </summary>
     void Jump()
     {
@@ -189,19 +189,19 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒXƒe[ƒWƒNƒŠƒA‚Ìˆ—
+    /// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¯ãƒªã‚¢ã®å‡¦ç†
     /// </summary>
     void Finish()
     {
         isFinish = true;
         rb.velocity = new Vector2(0, 0);
         animator.SetFloat("speed", Mathf.Abs(0));
-        Debug.Log("ƒXƒe[ƒWƒNƒŠƒA");
+        Debug.Log("ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¯ãƒªã‚¢");
         gameManager.StageClear();
     }
 
     /// <summary>
-    /// ƒQ[ƒ€ƒI[ƒo[‚Ìˆ—
+    /// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã®å‡¦ç†
     /// </summary>
     public void PlayerDead()
     {
@@ -216,7 +216,7 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒ_ƒ[ƒW‚ğó‚¯‚é
+    /// ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ã‚‹
     /// </summary>
     /// <param name="enemy"></param>
     /// <param name="damage"></param>
@@ -226,18 +226,18 @@ public class Player : MonoBehaviour
         isDamage = true;
         Debug.Log(isDamage);
 
-        // HitƒAƒjƒ[ƒVƒ‡ƒ“‚ÉØ‚è‘Ö‚¦‚é
+        // Hitã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã«åˆ‡ã‚Šæ›¿ãˆã‚‹
         animator.SetTrigger("hit");
 
-        // ˆê’UˆÚ“®‚ğ~‚ß‚é 
+        // ä¸€æ—¦ç§»å‹•ã‚’æ­¢ã‚ã‚‹ 
         rb.velocity = Vector2.zero;
         animator.SetFloat("speed", Mathf.Abs(0));
 
-        // “G‚Æ”½‘Î•ûŒü‚ÉƒmƒbƒNƒoƒbƒN
+        // æ•µã¨åå¯¾æ–¹å‘ã«ãƒãƒƒã‚¯ãƒãƒƒã‚¯
         Vector3 v = (transform.position - enemy.transform.position).normalized;
         rb.AddForce(new Vector2(v.x * 2, 0), ForceMode2D.Impulse);
 
-        // HP‚ğŒ¸‚ç‚·
+        // HPã‚’æ¸›ã‚‰ã™
         currentHp -= damage;
         hpGauge.fillAmount = currentHp / maxHp;
         Debug.Log(currentHp);
