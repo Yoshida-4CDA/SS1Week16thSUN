@@ -12,14 +12,23 @@ public class ParamsSO : ScriptableObject
     public float playerJump;
 
     [Header("敵を踏めるかどうかの判定距離")]
+    [Tooltip("0 = ミイラ, 1 = サソリ, 2 = ヘビ")]
     public float[] playerDistanceToEnemy;
 
     [Header("地面までの判定距離(プレイヤー)")]
     public float playerDistanceToGround;
 
+    [Header("プレイヤーのMaxHP")]
+    [Range(1, 100)]
+    public int maxHpGaugeValue;
+
+    [Header("敵から受けるダメージ")]
+    [Tooltip("0 = ミイラ, 1 = サソリ, 2 = ヘビ")]
+    public float[] playerDamege;
+
     [Header("水分ゲージの最大値")]
     [Range(1, 100)]
-    public int waterGaugeMaxValue;
+    public int maxWaterGaugeValue;
 
     [Header("水分ゲージの減少量")]
     public float waterThirstyValue;
@@ -28,12 +37,15 @@ public class ParamsSO : ScriptableObject
     public int recoverValue;
 
     [Header("敵の移動スピード")]
+    [Tooltip("0 = ミイラ, 1 = サソリ, 2 = ヘビ")]
     public float[] enemySpeed;
 
     [Header("敵のサイズ")]
+    [Tooltip("0 = ミイラ, 1 = サソリ, 2 = ヘビ")]
     public float[] enemyScale;
 
     [Header("地面までの判定距離(敵)")]
+    [Tooltip("0 = ミイラ, 1 = サソリ, 2 = ヘビ")]
     public float[] enemyDistanceToGround;
 
     // ParamsSOが保存してある場所のパス

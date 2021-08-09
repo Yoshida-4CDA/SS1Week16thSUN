@@ -19,7 +19,12 @@ MonoBehaviour:
   - 1.25
   - 0.75
   playerDistanceToGround: 1.45
-  waterGaugeMaxValue: 100
+  maxHpGaugeValue: 100
+  playerDamege:
+  - 25
+  - 10
+  - 5
+  maxWaterGaugeValue: 100
   waterThirstyValue: 10
   recoverValue: 50
   enemySpeed:

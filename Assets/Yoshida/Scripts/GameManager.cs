@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     public bool isStart;    // ゲームがスタートしたかどうかを判別する変数
     
-    float waterMaxValue;        // 水分ゲージの最大値
+    float maxWaterValue;        // 水分ゲージの最大値
     float currentWaterValue;    // 現在の水分ゲージの値
 
     // コルーチンを代入する変数
@@ -33,9 +33,9 @@ public class GameManager : MonoBehaviour
         StartCoroutine(GameStart());
 
         // 水分ゲージの初期化
-        waterMaxValue = ParamsSO.Entity.waterGaugeMaxValue;
-        currentWaterValue = waterMaxValue;
-        waterGauge.fillAmount = currentWaterValue / waterMaxValue;
+        maxWaterValue = ParamsSO.Entity.maxWaterGaugeValue;
+        currentWaterValue = maxWaterValue;
+        waterGauge.fillAmount = currentWaterValue / maxWaterValue;
 
         // コルーチンを変数に代入 => コルーチンの処理を途中で停止させるため
         updateWaterValue = UpdateWaterValue();
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(2f);
             currentWaterValue -= ParamsSO.Entity.waterThirstyValue;
-            waterGauge.fillAmount = currentWaterValue / waterMaxValue;
+            waterGauge.fillAmount = currentWaterValue / maxWaterValue;
             Debug.Log($"{currentWaterValue}");
             yield return null;
         }
@@ -93,11 +93,11 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("水分ゲージを回復");
         currentWaterValue += value;
-        if (currentWaterValue > waterMaxValue)
+        if (currentWaterValue > maxWaterValue)
         {
-            currentWaterValue = waterMaxValue;
+            currentWaterValue = maxWaterValue;
         }
-        waterGauge.fillAmount = currentWaterValue / waterMaxValue;
+        waterGauge.fillAmount = currentWaterValue / maxWaterValue;
         Debug.Log(currentWaterValue);
     }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
@@ -10,6 +11,9 @@ public class Player : MonoBehaviour
 
     [Header("GameManager")]
     [SerializeField] GameManager gameManager = default;
+
+    [Header("HPゲージ")]
+    [SerializeField] Image hpGauge = default;
 
     /// <summary>
     /// プレイヤーの進行方向
@@ -29,12 +33,12 @@ public class Player : MonoBehaviour
 
     Animator animator;
 
+    float maxHp;        // HPゲージの最大値
+    float currentHp;    // 現在のHP
+
     bool isFinish = false;  // ゴールしたかどうかを判別する変数
     bool isDead = false;    // プレイヤーが死んだかどうかを判別する変数
-
-    // 
-    bool isDamage;          // ダメージを受けているか
-    // 
+    bool isDamage;          // ダメージを受けているかどうかを判別する変数
 
     void Start()
     {
@@ -42,6 +46,11 @@ public class Player : MonoBehaviour
         transform.localScale = new Vector2(defaultScale, defaultScale);
 
         animator = GetComponent<Animator>();
+
+        // HPゲージの初期化
+        maxHp = ParamsSO.Entity.maxHpGaugeValue;
+        currentHp = maxHp;
+        hpGauge.fillAmount = currentHp / maxHp;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -139,6 +148,10 @@ public class Player : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            if (isFinish)
+            {
+                return;
+            }
             EnemyManager enemy = collision.gameObject.GetComponent<EnemyManager>();
 
             if (this.transform.position.y - ParamsSO.Entity.playerDistanceToEnemy[(int)enemy.enemyType] > enemy.transform.position.y)
@@ -154,13 +167,14 @@ public class Player : MonoBehaviour
                 {
                     return;
                 }
-                // ぶつかったらダメージを受ける
-                StartCoroutine(OnDamage(collision.gameObject));
+                // ぶつかったらダメージを受ける(敵ごとに受けるダメージ量が違う)
+                StartCoroutine(OnDamage(collision.gameObject, ParamsSO.Entity.playerDamege[(int)enemy.enemyType]));
 
-                /*
-                // 横からぶつかったらゲームオーバー
-                // PlayerDead();
-                */
+                if (currentHp <= 0)
+                {
+                    // 体力が0になったらゲームオーバー
+                    PlayerDead();
+                }
             }
         }
     }
@@ -201,7 +215,13 @@ public class Player : MonoBehaviour
         gameManager.GameOver();
     }
 
-    IEnumerator OnDamage(GameObject enemy)
+    /// <summary>
+    /// ダメージを受ける
+    /// </summary>
+    /// <param name="enemy"></param>
+    /// <param name="damage"></param>
+    /// <returns></returns>
+    IEnumerator OnDamage(GameObject enemy, float damage)
     {
         isDamage = true;
         Debug.Log(isDamage);
@@ -217,9 +237,15 @@ public class Player : MonoBehaviour
         Vector3 v = (transform.position - enemy.transform.position).normalized;
         rb.AddForce(new Vector2(v.x * 2, 0), ForceMode2D.Impulse);
 
+        // HPを減らす
+        currentHp -= damage;
+        hpGauge.fillAmount = currentHp / maxHp;
+        Debug.Log(currentHp);
+
         yield return new WaitForSeconds(0.5f);
 
         rb.velocity = Vector2.zero;
+
         isDamage = false;
         Debug.Log(isDamage);
     }
