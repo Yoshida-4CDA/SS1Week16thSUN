@@ -27,6 +27,9 @@ public class EnemyManager : MonoBehaviour
     [Header("地面のレイヤー")]
     [SerializeField] LayerMask groundLayer = default;
 
+    [Header("プレイヤーのレイヤー")]
+    [SerializeField] LayerMask playerLayer = default;
+
     [Header("敵の種類")]
     public ENEMY_TYPE enemyType;
 
@@ -47,6 +50,7 @@ public class EnemyManager : MonoBehaviour
 
     void Update()
     {
+        IsPlayer();
     }
 
     void FixedUpdate()
@@ -86,11 +90,19 @@ public class EnemyManager : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && IsPlayer())
         {
             // プレイヤーにぶつかったら向きを反転させる
             ChangeDirection();
         }
+    }
+
+    public bool IsPlayer()
+    {
+        Vector3 startVec = transform.position;
+        Vector3 endVec = startVec - transform.right * 0.7f * transform.localScale.x;
+        Debug.DrawLine(startVec, endVec, Color.red);
+        return Physics2D.Linecast(startVec, endVec, playerLayer);
     }
 
     bool IsGround()

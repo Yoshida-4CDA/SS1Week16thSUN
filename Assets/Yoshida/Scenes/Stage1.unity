@@ -1990,7 +1990,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1029206027}
   - component: {fileID: 1029206026}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Confiner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3370,7 +3370,7 @@ GameObject:
   - component: {fileID: 1993122665}
   - component: {fileID: 1993122664}
   - component: {fileID: 1993122663}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3997,7 +3997,7 @@ GameObject:
   - component: {fileID: 1316994302486511996}
   - component: {fileID: 1316994302486511995}
   - component: {fileID: 1316994302486511994}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Amaterasu
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -4055,7 +4055,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 128
   gameManager: {fileID: 908685189}
   hpGauge: {fileID: 201445724}
 --- !u!4 &1316994302486511998
@@ -4868,7 +4868,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 681651616410175649, guid: 90116743a61dca940a4104be95af2475, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 681651616410175649, guid: 90116743a61dca940a4104be95af2475, type: 3}
       propertyPath: m_LocalPosition.y

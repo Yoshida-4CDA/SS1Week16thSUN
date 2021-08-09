@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 5102925881422313161}
   - component: {fileID: 4616666332237057313}
   - component: {fileID: 2230602745681333199}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Mummy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -235,7 +235,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 128
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
   enemyType: 0
 --- !u!50 &5102925881422313161
 Rigidbody2D:
