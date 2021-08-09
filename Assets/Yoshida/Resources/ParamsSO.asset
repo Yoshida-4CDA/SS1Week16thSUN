@@ -14,7 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSpeed: 2.5
   playerJump: 450
+  playerDistanceToEnemy:
+  - 2
+  - 1.25
+  - 0.75
+  playerDistanceToGround: 1.45
   waterGaugeMaxValue: 100
   waterThirstyValue: 10
   recoverValue: 50
-  enemySpeed: 1.5
+  enemySpeed:
+  - 2.5
+  - 2
+  - 1.2
+  enemyScale:
+  - 1.3
+  - 0.9
+  - 0.8
+  enemyDistanceToGround:
+  - 1.57
+  - 0.68
+  - 0.8

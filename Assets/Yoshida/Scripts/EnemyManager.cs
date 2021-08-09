@@ -5,6 +5,16 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     /// <summary>
+    /// “G‚Ìí—Ş
+    /// </summary>
+    public enum ENEMY_TYPE
+    {
+        Mummy,
+        Scorpion,
+        Snake
+    }
+
+    /// <summary>
     /// “G‚Ìis•ûŒü
     /// </summary>
     public enum DIRECTION
@@ -13,6 +23,12 @@ public class EnemyManager : MonoBehaviour
         RIGHT,
         LEFT
     }
+
+    [Header("’n–Ê‚ÌƒŒƒCƒ„[")]
+    [SerializeField] LayerMask groundLayer = default;
+
+    [Header("“G‚Ìí—Ş")]
+    public ENEMY_TYPE enemyType;
 
     DIRECTION enemyDirection = DIRECTION.LEFT;
 
@@ -23,7 +39,7 @@ public class EnemyManager : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        if (transform.localScale.x != 1)
+        if (transform.localScale.x < 0)
         {
             enemyDirection = DIRECTION.RIGHT;
         }
@@ -35,18 +51,25 @@ public class EnemyManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!IsGround())
+        {
+            return;
+        }
+        float enemySize = ParamsSO.Entity.enemyScale[(int)enemyType];
+        float enemyMove = ParamsSO.Entity.enemySpeed[(int)enemyType];
+
         switch (enemyDirection)
         {
             case DIRECTION.STOP:                    // ’â~
                 speed = 0;
                 break;
             case DIRECTION.RIGHT:                   // ‰E‚ÉˆÚ“®
-                speed = ParamsSO.Entity.enemySpeed;
-                transform.localScale = new Vector3(-1, 1, 1);
+                speed = enemyMove;
+                transform.localScale = new Vector3(enemySize * -1, enemySize, 1);
                 break;
             case DIRECTION.LEFT:                    // ¶‚ÉˆÚ“®
-                speed = ParamsSO.Entity.enemySpeed * -1;
-                transform.localScale = new Vector3(1, 1, 1);
+                speed = enemyMove * -1;
+                transform.localScale = new Vector3(enemySize, enemySize, 1);
                 break;
         }
         rb.velocity = new Vector2(speed, rb.velocity.y);
@@ -54,11 +77,20 @@ public class EnemyManager : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Tree") || collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Wall"))
         {
-            // –Ø‚à‚µ‚­‚Í“G“¯m‚Ô‚Â‚©‚Á‚½‚çŒü‚«‚ğ”½“]‚³‚¹‚é
+            // •Ç‚É‚Ô‚Â‚©‚Á‚½‚çŒü‚«‚ğ”½“]‚³‚¹‚é
             ChangeDirection();
         }
+    }
+
+    bool IsGround()
+    {
+        Vector3 startVec = transform.position - (transform.up * ParamsSO.Entity.enemyDistanceToGround[(int)enemyType]);
+        Vector3 endVec = startVec - transform.up * 0.2f;
+        Debug.DrawLine(startVec, endVec, Color.red);
+
+        return Physics2D.Linecast(startVec, endVec, groundLayer);
     }
 
     /// <summary>

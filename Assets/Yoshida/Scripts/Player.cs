@@ -24,12 +24,10 @@ public class Player : MonoBehaviour
     DIRECTION playerDirection = DIRECTION.STOP;
 
     float axisX;    // X軸の値(-1.0 ~ 1.0)
-    Vector2 playerScale;
+    static float defaultScale = 0.5f;
     Rigidbody2D rb;
 
-    //
     Animator animator;
-    // 
 
     bool isFinish = false;  // ゴールしたかどうかを判別する変数
     bool isDead = false;    // プレイヤーが死んだかどうかを判別する変数
@@ -37,10 +35,9 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerScale = transform.localScale;
-        // 
+        transform.localScale = new Vector2(defaultScale, defaultScale);
+
         animator = GetComponent<Animator>();
-        // 
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -54,10 +51,7 @@ public class Player : MonoBehaviour
         Vector2 inputAxis = context.ReadValue<Vector2>();
         axisX = inputAxis.x;
 
-        // 
         animator.SetFloat("speed", Mathf.Abs(axisX));
-        // Debug.Log(Mathf.Abs(axisX));
-        //
 
         if (axisX == 0)
         {
@@ -80,10 +74,10 @@ public class Player : MonoBehaviour
             case DIRECTION.STOP:
                 break;
             case DIRECTION.RIGHT:
-                transform.localScale = new Vector2(playerScale.x, playerScale.y);
+                transform.localScale = new Vector2(defaultScale, defaultScale);
                 break;
             case DIRECTION.LEFT:
-                transform.localScale = new Vector2(playerScale.x * -1, playerScale.y);
+                transform.localScale = new Vector2(defaultScale * -1, defaultScale);
                 break;
         }
 
@@ -111,7 +105,6 @@ public class Player : MonoBehaviour
         {
             return;
         }
-        // Debug.Log(IsGround());
     }
 
     /// <summary>
@@ -120,11 +113,11 @@ public class Player : MonoBehaviour
     /// <returns></returns>
     bool IsGround()
     {
-        Vector3 startPos = transform.position - (transform.up * 1.15f);
-        Vector3 endPos = startPos - transform.up * 0.1f;
-        Debug.DrawLine(startPos, endPos, Color.red);
+        Vector3 startVec = transform.position - (transform.up * ParamsSO.Entity.playerDistanceToGround);
+        Vector3 endVec = startVec - transform.up * 0.1f;
+        Debug.DrawLine(startVec, endVec, Color.red);
 
-        return Physics2D.Linecast(startPos, endPos, groundLayer);
+        return Physics2D.Linecast(startVec, endVec, groundLayer);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -148,7 +141,7 @@ public class Player : MonoBehaviour
         {
             EnemyManager enemy = collision.gameObject.GetComponent<EnemyManager>();
 
-            if (this.transform.position.y - 1.3f > enemy.transform.position.y)
+            if (this.transform.position.y - ParamsSO.Entity.playerDistanceToEnemy[(int)enemy.enemyType] > enemy.transform.position.y)
             {
                 // 上から敵を踏んだらプレイヤーをジャンプさせる
                 rb.velocity = new Vector2(rb.velocity.x, 0);

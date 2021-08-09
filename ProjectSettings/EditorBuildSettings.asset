@@ -8,8 +8,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Yoshida/Scenes/Stage1.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
-    path: Assets/Yoshida/Scenes/Stage2.unity
-    guid: 7450095b363ab1a4bae0ffd1b0537e78
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 21f9f38856d5ee24f9d0944d3dd26d60, type: 2}
