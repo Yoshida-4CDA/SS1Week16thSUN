@@ -11,7 +11,8 @@ public class EnemyManager : MonoBehaviour
     {
         Mummy,
         Scorpion,
-        Snake
+        Snake,
+        Cat
     }
 
     /// <summary>
@@ -50,6 +51,7 @@ public class EnemyManager : MonoBehaviour
 
     void Update()
     {
+        IsPlayer();
     }
 
     void FixedUpdate()
@@ -98,8 +100,9 @@ public class EnemyManager : MonoBehaviour
 
     public bool IsPlayer()
     {
-        Vector3 startVec = transform.position;
-        Vector3 endVec = startVec - transform.right * 0.7f * transform.localScale.x;
+        Vector3 startVecPos = transform.position - (transform.up * 0.35f);
+        Vector3 startVec = startVecPos - (0.3f * transform.localScale.x * transform.right);
+        Vector3 endVec = startVec - (0.75f * transform.localScale.x * transform.right);
         Debug.DrawLine(startVec, endVec, Color.red);
         return Physics2D.Linecast(startVec, endVec, playerLayer);
     }

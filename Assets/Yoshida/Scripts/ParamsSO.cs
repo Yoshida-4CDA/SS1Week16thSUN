@@ -12,7 +12,7 @@ public class ParamsSO : ScriptableObject
     public float playerJump;
 
     [Header("敵を踏めるかどうかの判定距離")]
-    [Tooltip("0 = ミイラ, 1 = サソリ, 2 = ヘビ")]
+    [Tooltip("0 = ミイラ, 1 = サソリ, 2 = ヘビ, 3 = ネコ")]
     public float[] playerDistanceToEnemy;
 
     [Header("地面までの判定距離(プレイヤー)")]
@@ -23,7 +23,7 @@ public class ParamsSO : ScriptableObject
     public int maxHpGaugeValue;
 
     [Header("敵から受けるダメージ")]
-    [Tooltip("0 = ミイラ, 1 = サソリ, 2 = ヘビ")]
+    [Tooltip("0 = ミイラ, 1 = サソリ, 2 = ヘビ, 3 = ネコ")]
     public float[] playerDamege;
 
     [Header("水分ゲージの最大値")]
@@ -37,15 +37,15 @@ public class ParamsSO : ScriptableObject
     public int recoverValue;
 
     [Header("敵の移動スピード")]
-    [Tooltip("0 = ミイラ, 1 = サソリ, 2 = ヘビ")]
+    [Tooltip("0 = ミイラ, 1 = サソリ, 2 = ヘビ, 3 = ネコ")]
     public float[] enemySpeed;
 
     [Header("敵のサイズ")]
-    [Tooltip("0 = ミイラ, 1 = サソリ, 2 = ヘビ")]
+    [Tooltip("0 = ミイラ, 1 = サソリ, 2 = ヘビ, 3 = ネコ")]
     public float[] enemyScale;
 
     [Header("地面までの判定距離(敵)")]
-    [Tooltip("0 = ミイラ, 1 = サソリ, 2 = ヘビ")]
+    [Tooltip("0 = ミイラ, 1 = サソリ, 2 = ヘビ, 3 = ネコ")]
     public float[] enemyDistanceToGround;
 
     // ParamsSOが保存してある場所のパス
