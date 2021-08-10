@@ -6,10 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Yoshida/Scenes/Title.unity
+    guid: 44ca8e76849eb78478b22491d463acce
+  - enabled: 1
     path: Assets/Yoshida/Scenes/Stage1.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Yoshida/Scenes/Ending.unity
+    guid: 96561524fd2d26d409fa4700af0be23b
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 21f9f38856d5ee24f9d0944d3dd26d60, type: 2}

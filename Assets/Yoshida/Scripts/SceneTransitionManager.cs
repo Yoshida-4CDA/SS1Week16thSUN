@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransitionManager : MonoBehaviour
 {
-    public void OnClickNext(string sceneName)
+    public void OnClickButton(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
