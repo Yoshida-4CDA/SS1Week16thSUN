@@ -60,6 +60,7 @@ public class EnemyManager : MonoBehaviour
         {
             return;
         }
+
         float enemySize = ParamsSO.Entity.enemyScale[(int)enemyType];
         float enemyMove = ParamsSO.Entity.enemySpeed[(int)enemyType];
 
