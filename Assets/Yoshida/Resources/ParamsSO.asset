@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ff929830275cf47a80ad9ce12d92e9, type: 3}
   m_Name: ParamsSO
   m_EditorClassIdentifier: 
+  timerRotationSpeed: 0.05
   playerSpeed: 2.5
   playerJump: 450
   playerDistanceToEnemy:

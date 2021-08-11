@@ -20,13 +20,22 @@ public class GameManager : MonoBehaviour
     [Header("Player")]
     [SerializeField] Player player = default;
 
+    [Header("DayTimer")]
+    [SerializeField] GameObject dayTimer = default;
+
     public bool isStart;    // ゲームがスタートしたかどうかを判別する変数
     
     float maxWaterValue;        // 水分ゲージの最大値
     float currentWaterValue;    // 現在の水分ゲージの値
 
+    // ===== DayTimer用の変数 =====
+    int z;      // 0 ~ 359
+    Color dayBgColor;       // 昼の背景色
+    Color nightBgColor;     // 夜の背景色
+
     // コルーチンを代入する変数
-    public IEnumerator updateWaterValue;
+    IEnumerator updateWaterValue;
+    IEnumerator timerRotation;
 
     void Start()
     {
@@ -37,8 +46,14 @@ public class GameManager : MonoBehaviour
         currentWaterValue = maxWaterValue;
         waterGauge.fillAmount = currentWaterValue / maxWaterValue;
 
+        // DayTimerの初期設定
+        z = Mathf.RoundToInt(dayTimer.transform.localEulerAngles.z);
+        dayBgColor = Camera.main.backgroundColor;
+        nightBgColor = Color.black;
+
         // コルーチンを変数に代入 => コルーチンの処理を途中で停止させるため
         updateWaterValue = UpdateWaterValue();
+        timerRotation = TimerRotation();
     }
 
     void Update()
@@ -59,7 +74,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("ゲームスタート");
 
         // コルーチン呼び出し
-        yield return updateWaterValue;
+        StartCoroutine(updateWaterValue);
+        StartCoroutine(timerRotation);
     }
 
     /// <summary>
@@ -69,7 +85,7 @@ public class GameManager : MonoBehaviour
     IEnumerator UpdateWaterValue()
     {
         yield return new WaitForSeconds(1f);
-        Debug.Log("水分ゲージの減少開始");
+        Debug.Log("水分ゲージの減少");
         while (currentWaterValue > 0)
         {
             yield return new WaitForSeconds(2f);
@@ -102,11 +118,32 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// DayTimerの回転
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator TimerRotation()
+    {
+        yield return new WaitForSeconds(1f);
+        Debug.Log("タイマーの回転");
+
+        while (true)
+        {
+            dayTimer.transform.Rotate(new Vector3(0, 0, ParamsSO.Entity.timerRotationSpeed));
+            z = Mathf.RoundToInt(dayTimer.transform.localEulerAngles.z);
+
+            float t = Mathf.PingPong(z, 180);
+            Camera.main.backgroundColor = Color.Lerp(dayBgColor, nightBgColor, t / 180);
+            yield return null;
+        }
+    }
+
+    /// <summary>
     /// ステージクリア
     /// </summary>
     public void StageClear()
     {
         StopCoroutine(updateWaterValue);
+        StopCoroutine(timerRotation);
         stageClearText.SetActive(true);
     }
 
@@ -116,6 +153,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         StopCoroutine(updateWaterValue);
+        StopCoroutine(timerRotation);
         gameOverText.SetActive(true);
     }
 }

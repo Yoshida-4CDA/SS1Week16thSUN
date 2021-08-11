@@ -5,6 +5,9 @@ using UnityEngine;
 [CreateAssetMenu]
 public class ParamsSO : ScriptableObject
 {
+    [Header("DayTimerの回転スピード")]
+    public float timerRotationSpeed;
+
     [Header("プレイヤーの移動スピード")]
     public float playerSpeed;
 
