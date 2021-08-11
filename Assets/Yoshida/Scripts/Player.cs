@@ -117,7 +117,7 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// 地面についているかを判定
+    /// 地面に接しているかどうかを判別
     /// </summary>
     /// <returns></returns>
     bool IsGround()
@@ -129,7 +129,7 @@ public class Player : MonoBehaviour
         return Physics2D.Linecast(startVec, endVec, groundLayer);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (isDead)
         {

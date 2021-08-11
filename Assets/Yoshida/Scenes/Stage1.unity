@@ -3786,6 +3786,8 @@ MonoBehaviour:
   dayTimer: {fileID: 673924739}
   sunObj: {fileID: 794473351}
   isStart: 0
+  isDay: 0
+  isNight: 0
 --- !u!4 &908685190
 Transform:
   m_ObjectHideFlags: 0
@@ -8512,7 +8514,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6525685984355790913, guid: 90116743a61dca940a4104be95af2475, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 6525685984355790913, guid: 90116743a61dca940a4104be95af2475, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8899,7 +8901,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8157511222225932079, guid: dfd7430cd39b41f4ba2d3de632f8cc8e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfd7430cd39b41f4ba2d3de632f8cc8e, type: 3}
@@ -9144,7 +9146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3788844997108798342, guid: 2461d19745031f648b879d006dee50b7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2461d19745031f648b879d006dee50b7, type: 3}
@@ -9205,7 +9207,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3431966147706464008, guid: 15536c152016f8c4eb66ea7a195035ea, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15536c152016f8c4eb66ea7a195035ea, type: 3}

@@ -40,29 +40,12 @@ public class GameManager : MonoBehaviour
     Color sunColor;         // sunObjの色 => 太陽(白)
     Color moonColor;        // sunObjの色 => 月(黄色)
 
-    bool isDay;
-    bool isNight;
-
-    /*
-    // ===== ミイラを夜のみ出現させるための変数 =====
-    GameObject[] targets;
-    public List<GameObject> targetList = new List<GameObject>();
-    EnemyManager.ENEMY_TYPE targetType;
-    */
+    public bool isDay;      // 昼フラグ
+    public bool isNight;    // 夜フラグ
 
     // コルーチンを代入する変数
     IEnumerator updateWaterValue;
     IEnumerator timerRotation;
-
-    /*
-    private void Awake()
-    {
-        // ===== ミイラを夜のみ出現させるための処理 =====
-        // タグ「Enemy」のゲームオブジェクトを全て取得
-        targets = GameObject.FindGameObjectsWithTag("Enemy");
-        targetList.AddRange(targets);
-    }
-    */
 
     void Start()
     {
@@ -90,65 +73,10 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         DayOrNight();
-        /*
-        // ===== ミイラを夜のみ出現させるための処理 =====
-        if (targets != null)
-        {
-            foreach(GameObject target in targetList)
-            {
-                if (target != null)
-                {
-                    targetType = target.GetComponent<EnemyManager>().enemyType;
-
-                    if (isDay && target.activeSelf == true)
-                    {
-                        if (targetType == EnemyManager.ENEMY_TYPE.Mummy)
-                        {
-                            target.SetActive(false);
-                        }
-                    }
-                    else if (isNight && target.activeSelf == false)
-                    {
-                        if (targetType == EnemyManager.ENEMY_TYPE.Mummy)
-                        {
-                            target.SetActive(true);
-                        }
-                    }
-                }
-            }
-        }
-        if (targets == null)
-        {
-            return;
-        }
-        foreach (GameObject targetEnemy in targets)
-        {
-            if (targetEnemy == null)
-            {
-                return;
-            }
-            targetType = targetEnemy.GetComponent<EnemyManager>().enemyType;
-
-            if (isDay && targetEnemy.activeSelf == true)
-            {
-                if (targetType == EnemyManager.ENEMY_TYPE.Mummy)
-                {
-                    targetEnemy.SetActive(false);
-                }
-            }
-            else if (isNight && targetEnemy.activeSelf == false)
-            {
-                if (targetType == EnemyManager.ENEMY_TYPE.Mummy)
-                {
-                    targetEnemy.SetActive(true);
-                }
-            }
-        }
-        */
     }
 
     /// <summary>
-    /// 「START」の表示
+    /// ゲームスタート前の待機処理
     /// </summary>
     /// <returns></returns>
     IEnumerator GameStart()
@@ -175,15 +103,12 @@ public class GameManager : MonoBehaviour
         Debug.Log("水分ゲージの減少");
         while (currentWaterValue > 0)
         {
-            // if (!DayOrNight())
             if (isNight)
             {
                 yield return new WaitUntil(() => isDay);
-                // yield return new WaitUntil(() => DayOrNight());
             }
             currentWaterValue -= ParamsSO.Entity.waterThirstyValue;
             waterGauge.fillAmount = currentWaterValue / maxWaterValue;
-            // Debug.Log($"{currentWaterValue}：{DayOrNight()}");
             yield return null;
         }
         if (currentWaterValue <= 0)
@@ -236,20 +161,17 @@ public class GameManager : MonoBehaviour
     /// 昼か夜かを判別する
     /// </summary>
     /// <returns></returns>
-    // bool DayOrNight()
     void DayOrNight()
     {
         if ((z >= 0 && z < 120) || z >= 300)
         {
             // 昼
-            // return true;
             isDay = true;
             isNight = false;
         }
         else
         {
             // 夜
-            // return false;
             isDay = false;
             isNight = true;
         }
