@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        DayOrNight();
     }
 
     /// <summary>
@@ -99,10 +100,14 @@ public class GameManager : MonoBehaviour
         Debug.Log("水分ゲージの減少");
         while (currentWaterValue > 0)
         {
-            yield return new WaitForSeconds(2f);
+            if (!DayOrNight())
+            {
+                yield return new WaitUntil(() => DayOrNight());
+            }
+            // yield return new WaitForSeconds(1f);
             currentWaterValue -= ParamsSO.Entity.waterThirstyValue;
             waterGauge.fillAmount = currentWaterValue / maxWaterValue;
-            Debug.Log($"{currentWaterValue}");
+            Debug.Log($"{currentWaterValue}：{DayOrNight()}");
             yield return null;
         }
         if (currentWaterValue <= 0)
@@ -148,6 +153,24 @@ public class GameManager : MonoBehaviour
             // 太陽/月の色を徐々に変える
             objSprite.color = Color.Lerp(sunColor, moonColor, t / 180);
             yield return null;
+        }
+    }
+
+    /// <summary>
+    /// 昼か夜かを判別する
+    /// </summary>
+    /// <returns></returns>
+    bool DayOrNight()
+    {
+        if (z >= 0 && z < 120 || z >= 300)
+        {
+            // 昼
+            return true;
+        }
+        else
+        {
+            // 夜
+            return false;
         }
     }
 
