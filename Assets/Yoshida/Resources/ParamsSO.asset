@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ParamsSO
   m_EditorClassIdentifier: 
   timerRotationSpeed: 0.05
-  playerSpeed: 2.5
+  playerSpeed: 4
   playerJump: 450
   playerDistanceToEnemy:
   - 1.8
