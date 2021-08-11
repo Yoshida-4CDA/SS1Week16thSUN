@@ -1616,6 +1616,7 @@ MonoBehaviour:
   waterGauge: {fileID: 104334480}
   player: {fileID: 1316994302486511996}
   dayTimer: {fileID: 673924739}
+  sunObj: {fileID: 794473351}
   isStart: 0
 --- !u!4 &908685190
 Transform:

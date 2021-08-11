@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     [Header("DayTimer")]
     [SerializeField] GameObject dayTimer = default;
 
+    [Header("太陽/月")]
+    [SerializeField] GameObject sunObj = default;
+
     public bool isStart;    // ゲームがスタートしたかどうかを判別する変数
     
     float maxWaterValue;        // 水分ゲージの最大値
@@ -32,6 +35,10 @@ public class GameManager : MonoBehaviour
     int z;      // 0 ~ 359
     Color dayBgColor;       // 昼の背景色
     Color nightBgColor;     // 夜の背景色
+
+    SpriteRenderer objSprite;
+    Color sunColor;         // sunObjの色 => 太陽(白)
+    Color moonColor;        // sunObjの色 => 月(黄色)
 
     // コルーチンを代入する変数
     IEnumerator updateWaterValue;
@@ -50,6 +57,10 @@ public class GameManager : MonoBehaviour
         z = Mathf.RoundToInt(dayTimer.transform.localEulerAngles.z);
         dayBgColor = Camera.main.backgroundColor;
         nightBgColor = Color.black;
+
+        sunColor = Color.white;
+        moonColor = Color.yellow;
+        objSprite = sunObj.GetComponent<SpriteRenderer>();
 
         // コルーチンを変数に代入 => コルーチンの処理を途中で停止させるため
         updateWaterValue = UpdateWaterValue();
@@ -132,7 +143,10 @@ public class GameManager : MonoBehaviour
             z = Mathf.RoundToInt(dayTimer.transform.localEulerAngles.z);
 
             float t = Mathf.PingPong(z, 180);
+            // カメラの背景色を徐々に変える
             Camera.main.backgroundColor = Color.Lerp(dayBgColor, nightBgColor, t / 180);
+            // 太陽/月の色を徐々に変える
+            objSprite.color = Color.Lerp(sunColor, moonColor, t / 180);
             yield return null;
         }
     }
