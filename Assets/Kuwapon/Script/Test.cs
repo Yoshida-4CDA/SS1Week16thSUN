@@ -24,7 +24,7 @@ public class Test : MonoBehaviour
     }
     public void BGM05()
     {
-        SoundManager.instance.PlayBGM(SoundManager.BGM.DesertNight);
+        SoundManager.instance.PlayBGM(SoundManager.BGM.CityNight);
     }
     public void BGM06()
     {

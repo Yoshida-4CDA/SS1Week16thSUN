@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d3ed70574034b8bad5ea72b2d1eb85, type: 3}
   m_Name: AudioParamsSO
   m_EditorClassIdentifier: 
-  BGMVolume: 1
+  BGMVolume: 0.63408154
   SEVolume: 1
-  AmachanThemeVolume: 1
-  DesertNoonVolume: 1
-  DesertNightVolume: 1
-  CityNoonVolume: 1
-  CityNightVolume: 1
-  TempleVolume: 1
-  DamageVolume: 1
+  AmachanThemeVolume: 0.33
+  DesertNoonVolume: 0.84
+  DesertNightVolume: 0.84
+  CityNoonVolume: 0.8
+  CityNightVolume: 0.63
+  TempleVolume: 0.68
+  DamageVolume: 0.7
   ClearVolume: 1
   JumpVolume: 1
-  DrinkVolume: 1
-  AttackVolume: 1
-  ClickVolume: 1
+  DrinkVolume: 0.48
+  AttackVolume: 0.7
+  ClickVolume: 0.42
   GameoverVolume: 1
