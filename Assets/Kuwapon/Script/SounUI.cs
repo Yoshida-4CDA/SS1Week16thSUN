@@ -5,7 +5,6 @@ using UnityEngine.UI ;
 
 public class SounUI : MonoBehaviour
 {
-    [SerializeField] GameObject panel = default;
 
     [SerializeField] Slider bgmSlider = default;
     [SerializeField] Slider seSlider = default;
@@ -20,14 +19,6 @@ public class SounUI : MonoBehaviour
     }
 
 
-    public void Show()
-    {
-       panel.SetActive(true);
-    }
-
-    public void Hide()
-    {
-        panel.SetActive(false);
-    }
+    
 
 }

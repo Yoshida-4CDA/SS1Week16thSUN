@@ -143,6 +143,7 @@ public class Player : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Item"))
         {
+            SoundManager.instance.PlaySE(SoundManager.SE.Drink);
             // アイテムゲット
             collision.gameObject.GetComponent<ItemManager>().GetItem();
         }
@@ -165,6 +166,7 @@ public class Player : MonoBehaviour
             {
                 if (isDamage)
                 {
+                    SoundManager.instance.PlaySE(SoundManager.SE.Damage);
                     return;
                 }
                 // ぶつかったらダメージを受ける(敵ごとに受けるダメージ量が違う)
@@ -189,6 +191,7 @@ public class Player : MonoBehaviour
     /// </summary>
     void Jump()
     {
+        SoundManager.instance.PlaySE(SoundManager.SE.Jump);
         rb.AddForce(Vector2.up * ParamsSO.Entity.playerJump);
         animator.SetTrigger("jump");
     }
@@ -199,6 +202,8 @@ public class Player : MonoBehaviour
     void Finish()
     {
         isFinish = true;
+        SoundManager.instance.StopBGM();
+        SoundManager.instance.PlaySE(SoundManager.SE.Clear);
         rb.velocity = new Vector2(0, 0);
         animator.SetFloat("speed", Mathf.Abs(0));
         Debug.Log("ステージクリア");
@@ -211,6 +216,8 @@ public class Player : MonoBehaviour
     public void PlayerDead()
     {
         isDead = true;
+        SoundManager.instance.StopBGM();
+        SoundManager.instance.PlaySE(SoundManager.SE.Gameover);
         animator.SetTrigger("die");
         rb.velocity = new Vector2(0, 0);
         rb.AddForce(Vector2.up * ParamsSO.Entity.playerJump);
@@ -230,7 +237,7 @@ public class Player : MonoBehaviour
     {
         isDamage = true;
         Debug.Log(isDamage);
-
+        SoundManager.instance.PlaySE(SoundManager.SE.Damage);
         // Hitアニメーションに切り替える
         animator.SetTrigger("hit");
 

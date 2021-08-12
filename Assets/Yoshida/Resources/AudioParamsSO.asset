@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d3ed70574034b8bad5ea72b2d1eb85, type: 3}
   m_Name: AudioParamsSO
   m_EditorClassIdentifier: 
-  BGMVolume: 0.63408154
+  BGMVolume: 1
   SEVolume: 1
-  AmachanThemeVolume: 0.33
+  AmachanThemeVolume: 0.51
   DesertNoonVolume: 0.84
   DesertNightVolume: 0.84
   CityNoonVolume: 0.8

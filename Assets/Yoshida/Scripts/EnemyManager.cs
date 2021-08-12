@@ -202,6 +202,7 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     public void DestroyEnemy()
     {
+        SoundManager.instance.PlaySE(SoundManager.SE.Attack);
         Destroy(this.gameObject);
     }
 }
