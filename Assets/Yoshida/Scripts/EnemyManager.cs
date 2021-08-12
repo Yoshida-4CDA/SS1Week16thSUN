@@ -115,10 +115,8 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     void HideMummy()
     {
-        // 移動、重力、コライダーを全て無効にする
-        rb.bodyType = RigidbodyType2D.Static;
-        box2D.enabled = false;                      
-        circle2D.enabled = false;
+        // 移動、重力、コライダーの判定を全て無効にする
+        rb.simulated = false;
 
         // サイズを0にする
         transform.localScale = new Vector3(0, 0, 1);
@@ -131,10 +129,8 @@ public class EnemyManager : MonoBehaviour
     /// <param name="currentLocalScale">元のサイズ</param>
     void ShowMummy(Vector3 currentLocalScale)
     {
-        // 移動、重力、コライダーを全て有効にする
-        rb.bodyType = RigidbodyType2D.Dynamic;
-        box2D.enabled = true;
-        circle2D.enabled = true;
+        // 移動、重力、コライダーの判定を全て有効にする
+        rb.simulated = true;
 
         // サイズを元に戻す
         transform.localScale = currentLocalScale;
