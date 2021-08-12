@@ -179,6 +179,7 @@ public class GameManager : MonoBehaviour
             // 夜
             isDay = false;
             isNight = true;
+            
         }
     }
 
