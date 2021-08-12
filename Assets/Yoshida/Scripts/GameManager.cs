@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject stageClearText = default;
 
     [Header("水分ゲージ")]
-    [SerializeField] Image waterGauge = default;
+    public Image waterGauge = default;
 
     [Header("Player")]
     [SerializeField] Player player = default;
@@ -26,10 +26,13 @@ public class GameManager : MonoBehaviour
     [Header("太陽/月")]
     [SerializeField] GameObject sunObj = default;
 
+    [HideInInspector]
     public bool isStart;    // ゲームがスタートしたかどうかを判別する変数
-    
-    float maxWaterValue;        // 水分ゲージの最大値
-    float currentWaterValue;    // 現在の水分ゲージの値
+
+    [HideInInspector]
+    public float maxWaterValue;        // 水分ゲージの最大値
+    [HideInInspector]
+    public float currentWaterValue;    // 現在の水分ゲージの値
 
     // ===== DayTimer用の変数 =====
     int z;      // 0 ~ 359
@@ -39,6 +42,11 @@ public class GameManager : MonoBehaviour
     SpriteRenderer objSprite;
     Color sunColor;         // sunObjの色 => 太陽(白)
     Color moonColor;        // sunObjの色 => 月(黄色)
+
+    [HideInInspector]
+    public bool isDay;      // 昼フラグ
+    [HideInInspector]
+    public bool isNight;    // 夜フラグ
 
     // コルーチンを代入する変数
     IEnumerator updateWaterValue;
@@ -73,7 +81,7 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 「START」の表示
+    /// ゲームスタート前の待機処理
     /// </summary>
     /// <returns></returns>
     IEnumerator GameStart()
@@ -100,14 +108,12 @@ public class GameManager : MonoBehaviour
         Debug.Log("水分ゲージの減少");
         while (currentWaterValue > 0)
         {
-            if (!DayOrNight())
+            if (isNight)
             {
-                yield return new WaitUntil(() => DayOrNight());
+                yield return new WaitUntil(() => isDay);
             }
-            // yield return new WaitForSeconds(1f);
             currentWaterValue -= ParamsSO.Entity.waterThirstyValue;
             waterGauge.fillAmount = currentWaterValue / maxWaterValue;
-            Debug.Log($"{currentWaterValue}：{DayOrNight()}");
             yield return null;
         }
         if (currentWaterValue <= 0)
@@ -130,7 +136,7 @@ public class GameManager : MonoBehaviour
             currentWaterValue = maxWaterValue;
         }
         waterGauge.fillAmount = currentWaterValue / maxWaterValue;
-        Debug.Log(currentWaterValue);
+        Debug.Log($"水分：{currentWaterValue}");
     }
 
     /// <summary>
@@ -160,17 +166,19 @@ public class GameManager : MonoBehaviour
     /// 昼か夜かを判別する
     /// </summary>
     /// <returns></returns>
-    bool DayOrNight()
+    void DayOrNight()
     {
-        if (z >= 0 && z < 120 || z >= 300)
+        if ((z >= 0 && z < 120) || z >= 300)
         {
             // 昼
-            return true;
+            isDay = true;
+            isNight = false;
         }
         else
         {
             // 夜
-            return false;
+            isDay = false;
+            isNight = true;
         }
     }
 

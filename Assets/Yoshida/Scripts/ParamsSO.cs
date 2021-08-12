@@ -36,6 +36,9 @@ public class ParamsSO : ScriptableObject
     [Header("水分ゲージの減少量")]
     public float waterThirstyValue;
 
+    [Header("敵に当たった時の水分ゲージの減少量")]
+    public float waterDamage;
+
     [Header("アイテムの回復量")]
     public int recoverValue;
 
@@ -47,6 +50,7 @@ public class ParamsSO : ScriptableObject
     [Tooltip("0 = ミイラ, 1 = サソリ, 2 = ヘビ, 3 = ネコ")]
     public float[] enemyScale;
 
+    [HideInInspector]
     [Header("地面までの判定距離(敵)")]
     [Tooltip("0 = ミイラ, 1 = サソリ, 2 = ヘビ, 3 = ネコ")]
     public float[] enemyDistanceToGround;
