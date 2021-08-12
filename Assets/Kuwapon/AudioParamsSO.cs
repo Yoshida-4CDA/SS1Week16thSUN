@@ -89,7 +89,7 @@ public class AudioParamsSO : ScriptableObject
         return 0;
     }
 
-    public const string PATH = "AudioParamSO";
+    public const string PATH = "AudioParamsSO";
     private static AudioParamsSO _entity;
     public static AudioParamsSO Entity
     {
