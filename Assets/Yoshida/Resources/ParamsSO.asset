@@ -20,11 +20,13 @@ MonoBehaviour:
   - 1.25
   - 0.75
   - 0.7
+  - 0.6
   playerDistanceToGround: 1.45
   maxHpGaugeValue: 100
   playerDamege:
   - 20
   - 10
+  - 5
   - 5
   - 5
   maxWaterGaugeValue: 100
@@ -36,13 +38,16 @@ MonoBehaviour:
   - 1
   - 2
   - 1.5
+  - 2
   enemyScale:
   - 1.3
   - 0.9
   - 0.8
   - 0.95
+  - 0.7
   enemyDistanceToGround:
   - 1.57
   - 0.68
   - 0.8
+  - 1
   - 1

@@ -12,7 +12,8 @@ public class EnemyManager : MonoBehaviour
         Mummy,
         Scorpion,
         Snake,
-        Cat
+        Cat,
+        Bird
     }
 
     /// <summary>
@@ -25,6 +26,7 @@ public class EnemyManager : MonoBehaviour
         LEFT
     }
 
+    [HideInInspector]
     [Header("地面のレイヤー")]
     [SerializeField] LayerMask groundLayer = default;
 
@@ -41,8 +43,6 @@ public class EnemyManager : MonoBehaviour
 
     // ===== 夜間の処理用の変数(ミイラ専用) =====
     GameManager gameManager;
-    BoxCollider2D box2D;
-    CircleCollider2D circle2D;
 
     void Start()
     {
@@ -50,8 +50,6 @@ public class EnemyManager : MonoBehaviour
 
         // ===== 夜間の処理用の処理(ミイラ専用) =====
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        box2D = GetComponent<BoxCollider2D>();
-        circle2D = GetComponent<CircleCollider2D>();
 
         if (transform.localScale.x < 0)
         {
@@ -66,10 +64,12 @@ public class EnemyManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        /*
         if (!IsGround())
         {
             return;
         }
+        */
 
         float enemySize = ParamsSO.Entity.enemyScale[(int)enemyType];
         float enemyMove = ParamsSO.Entity.enemySpeed[(int)enemyType];
@@ -167,6 +167,7 @@ public class EnemyManager : MonoBehaviour
         return Physics2D.Linecast(startVec, endVec, playerLayer);
     }
 
+    /*
     /// <summary>
     /// 地面に接しているかどうかを判別
     /// </summary>
@@ -179,6 +180,7 @@ public class EnemyManager : MonoBehaviour
 
         return Physics2D.Linecast(startVec, endVec, groundLayer);
     }
+    */
 
     /// <summary>
     /// 移動方向を反転させる
