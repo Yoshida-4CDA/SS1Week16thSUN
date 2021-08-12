@@ -36,6 +36,9 @@ public class ParamsSO : ScriptableObject
     [Header("水分ゲージの減少量")]
     public float waterThirstyValue;
 
+    [Header("敵に当たった時の水分ゲージの減少量")]
+    public float waterDamage;
+
     [Header("アイテムの回復量")]
     public int recoverValue;
 

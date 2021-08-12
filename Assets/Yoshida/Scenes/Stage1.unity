@@ -5690,6 +5690,8 @@ MonoBehaviour:
   dayTimer: {fileID: 673924739}
   sunObj: {fileID: 794473351}
   isStart: 0
+  maxWaterValue: 0
+  currentWaterValue: 0
   isDay: 0
   isNight: 0
 --- !u!4 &908685190

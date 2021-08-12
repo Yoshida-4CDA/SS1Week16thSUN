@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject stageClearText = default;
 
     [Header("水分ゲージ")]
-    [SerializeField] Image waterGauge = default;
+    public Image waterGauge = default;
 
     [Header("Player")]
     [SerializeField] Player player = default;
@@ -26,10 +26,13 @@ public class GameManager : MonoBehaviour
     [Header("太陽/月")]
     [SerializeField] GameObject sunObj = default;
 
+    [HideInInspector]
     public bool isStart;    // ゲームがスタートしたかどうかを判別する変数
-    
-    float maxWaterValue;        // 水分ゲージの最大値
-    float currentWaterValue;    // 現在の水分ゲージの値
+
+    [HideInInspector]
+    public float maxWaterValue;        // 水分ゲージの最大値
+    [HideInInspector]
+    public float currentWaterValue;    // 現在の水分ゲージの値
 
     // ===== DayTimer用の変数 =====
     int z;      // 0 ~ 359
@@ -40,7 +43,9 @@ public class GameManager : MonoBehaviour
     Color sunColor;         // sunObjの色 => 太陽(白)
     Color moonColor;        // sunObjの色 => 月(黄色)
 
+    [HideInInspector]
     public bool isDay;      // 昼フラグ
+    [HideInInspector]
     public bool isNight;    // 夜フラグ
 
     // コルーチンを代入する変数
@@ -131,7 +136,7 @@ public class GameManager : MonoBehaviour
             currentWaterValue = maxWaterValue;
         }
         waterGauge.fillAmount = currentWaterValue / maxWaterValue;
-        Debug.Log(currentWaterValue);
+        Debug.Log($"水分：{currentWaterValue}");
     }
 
     /// <summary>

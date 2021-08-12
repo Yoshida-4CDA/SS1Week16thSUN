@@ -170,9 +170,14 @@ public class Player : MonoBehaviour
                 // ぶつかったらダメージを受ける(敵ごとに受けるダメージ量が違う)
                 StartCoroutine(OnDamage(collision.gameObject, ParamsSO.Entity.playerDamege[(int)enemy.enemyType]));
 
-                if (currentHp <= 0)
+                // 敵にぶつかったら水分ゲージも減らす
+                gameManager.currentWaterValue -= ParamsSO.Entity.waterDamage;
+                gameManager.waterGauge.fillAmount = gameManager.currentWaterValue / gameManager.maxWaterValue;
+                Debug.Log($"水分：{gameManager.currentWaterValue}");
+
+                if (currentHp <= 0 || gameManager.currentWaterValue <= 0)
                 {
-                    // 体力が0になったらゲームオーバー
+                    // 体力か水分が0になったらゲームオーバー
                     PlayerDead();
                 }
             }
@@ -240,7 +245,7 @@ public class Player : MonoBehaviour
         // HPを減らす
         currentHp -= damage;
         hpGauge.fillAmount = currentHp / maxHp;
-        Debug.Log(currentHp);
+        Debug.Log($"HP：{currentHp}");
 
         yield return new WaitForSeconds(0.5f);
 
