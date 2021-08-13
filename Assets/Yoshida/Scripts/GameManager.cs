@@ -87,23 +87,6 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     IEnumerator GameStart()
     {
-        // ============================
-        // ステージに合わせてBGMをセットする
-        string currentStage = SceneManager.GetActiveScene().name;
-
-        if(currentStage == "Stage1")
-        {
-            SoundManager.instance.PlayBGM(SoundManager.BGM.DesertNoon);
-        }
-        else if (currentStage == "Stage2")
-        {
-            SoundManager.instance.PlayBGM(SoundManager.BGM.CityNight);
-        }
-        else if (currentStage == "Stage3")
-        {
-            SoundManager.instance.PlayBGM(SoundManager.BGM.Temple);
-        }
-
         isStart = false;
 
         yield return new WaitForSeconds(1.5f);

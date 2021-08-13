@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ff929830275cf47a80ad9ce12d92e9, type: 3}
   m_Name: ParamsSO
   m_EditorClassIdentifier: 
-  timerRotationSpeed: 0.15
-  playerSpeed: 4
+  timerRotationSpeed: 0.125
+  playerSpeed: 20
   playerJump: 450
   playerDistanceToEnemy:
   - 1.8
@@ -28,7 +28,7 @@ MonoBehaviour:
   - 10
   - 5
   - 5
-  - 5
+  - 3
   maxWaterGaugeValue: 100
   waterThirstyValue: 0
   waterDamage: 5

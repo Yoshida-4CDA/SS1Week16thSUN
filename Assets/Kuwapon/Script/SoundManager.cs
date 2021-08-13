@@ -65,8 +65,6 @@ public class SoundManager : MonoBehaviour
         return bgmAudioSource.volume;
     }*/
 
-
-
     public void StopBGM()
     {
         bgmAudioSource.Stop();
@@ -77,12 +75,11 @@ public class SoundManager : MonoBehaviour
     public void PlayBGM(BGM bgm)
     {
         int index = (int)bgm;
-    currentBgm = bgm;
-    bgmAudioSource.volume = AudioParamsSO.Entity.GetVolume(currentBgm);
-    bgmAudioSource.clip = bgmClips[index];
-    bgmAudioSource.Play();
-    Debug.Log(bgmAudioSource.volume);
-
+        currentBgm = bgm;
+        bgmAudioSource.volume = AudioParamsSO.Entity.GetVolume(currentBgm);
+        bgmAudioSource.clip = bgmClips[index];
+        bgmAudioSource.Play();
+        Debug.Log(bgmAudioSource.volume);
     }
 
     public void PlaySE(SE se)
@@ -97,7 +94,5 @@ public class SoundManager : MonoBehaviour
     {
         return seAudioSource.isPlaying;
     }
-
-
 }
 
