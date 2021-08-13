@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;  // 
 
 public class GameManager : MonoBehaviour
 {
@@ -86,6 +87,18 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     IEnumerator GameStart()
     {
+        // ============================
+        // ステージに合わせてBGMをセットする
+        string currentStage = SceneManager.GetActiveScene().name;
+        if(currentStage == "Stage1"|| currentStage == "Stage2")
+        {
+            SoundManager.instance.PlayBGM(SoundManager.BGM.DesertNoon);
+        }
+        else if(currentStage == "Stage3")
+        {
+            SoundManager.instance.PlayBGM(SoundManager.BGM.CityNoon);
+        }
+
         isStart = false;
 
         yield return new WaitForSeconds(1.5f);
@@ -179,7 +192,6 @@ public class GameManager : MonoBehaviour
             // 夜
             isDay = false;
             isNight = true;
-            
         }
     }
 
