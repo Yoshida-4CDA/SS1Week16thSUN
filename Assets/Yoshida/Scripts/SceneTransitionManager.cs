@@ -7,6 +7,7 @@ public class SceneTransitionManager : MonoBehaviour
 {
     public void OnClickButton(string sceneName)
     {
+        SoundManager.instance.PlaySE(SoundManager.SE.Click);
         SceneManager.LoadScene(sceneName);
 
         // シーンに合わせてBGMを設定する
@@ -35,6 +36,7 @@ public class SceneTransitionManager : MonoBehaviour
     public void OnClickRetry()
     {
         Scene thisScene = SceneManager.GetActiveScene();    // 現在のシーンを取得
+        SoundManager.instance.PlaySE(SoundManager.SE.Click);
         SceneManager.LoadScene(thisScene.name);
     }
 }
