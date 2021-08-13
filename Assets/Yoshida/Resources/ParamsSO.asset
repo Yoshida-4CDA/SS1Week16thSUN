@@ -30,9 +30,9 @@ MonoBehaviour:
   - 5
   - 3
   maxWaterGaugeValue: 100
-  waterThirstyValue: 0.02
-  waterDamage: 3
-  recoverValue: 75
+  waterThirstyValue: 0.04
+  waterDamage: 2.5
+  recoverValue: 60
   enemySpeed:
   - 1.2
   - 1
