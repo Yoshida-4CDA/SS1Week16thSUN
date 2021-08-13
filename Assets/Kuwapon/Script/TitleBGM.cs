@@ -9,8 +9,8 @@ public class TitleBGM : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        soundUIPanel.SetActive(false);
-        SoundManager.instance.PlayBGM(SoundManager.BGM.AmachanTheme);
+        // soundUIPanel.SetActive(false);
+        // SoundManager.instance.PlayBGM(SoundManager.BGM.AmachanTheme);
     }
 
     public void ShowPanel()
