@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +11,7 @@ public class SoundManager : MonoBehaviour
     BGM currentBgm;
 
     public static SoundManager instance;
+
     private void Awake()
     {
         if (instance == null)
@@ -32,7 +33,6 @@ public class SoundManager : MonoBehaviour
         CityNoon,
         CityNight,
         Temple,
-       
     }
 
     public enum SE
@@ -42,7 +42,7 @@ public class SoundManager : MonoBehaviour
         Jump,
         Drink,
         Attack,
-        Click,
+        Click,  //
         Gameover,
             
     }
