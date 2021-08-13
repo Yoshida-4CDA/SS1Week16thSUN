@@ -75,9 +75,9 @@ public class SoundManager : MonoBehaviour
         public void PlayBGM(BGM bgm)
         {
             int index = (int)bgm;
-        bgmAudioSource.volume = AudioParamsSO.Entity.GetVolume(bgm);
-        bgmAudioSource.clip = bgmClips[index];
-        bgmAudioSource.Play();
+            bgmAudioSource.volume = AudioParamsSO.Entity.GetVolume(bgm);
+            bgmAudioSource.clip = bgmClips[index];
+            bgmAudioSource.Play();
         }
 
         public void PlaySE(SE se)
