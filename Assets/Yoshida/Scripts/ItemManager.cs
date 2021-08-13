@@ -23,7 +23,7 @@ public class ItemManager : MonoBehaviour
         if (this.gameObject.CompareTag("Item"))
         {
             // 水分ゲージを回復する
-            Debug.Log("アイテムゲット");
+            // Debug.Log("アイテムゲット");
             gameManager.RecoverWaterValue(ParamsSO.Entity.recoverValue);
             Destroy(gameObject);
         }

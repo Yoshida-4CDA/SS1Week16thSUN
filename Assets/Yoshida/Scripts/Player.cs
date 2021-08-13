@@ -33,8 +33,8 @@ public class Player : MonoBehaviour
 
     Animator animator;
 
-    float maxHp;        // HPゲージの最大値
-    float currentHp;    // 現在のHP
+    float maxHp;                        // HPゲージの最大値
+    public static float currentHp;      // 現在のHP
 
     bool isFinish = false;  // ゴールしたかどうかを判別する変数
     bool isDead = false;    // プレイヤーが死んだかどうかを判別する変数
@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
 
         // HPゲージの初期化
         maxHp = ParamsSO.Entity.maxHpGaugeValue;
-        currentHp = maxHp;
+        currentHp = GetHP();
         hpGauge.fillAmount = currentHp / maxHp;
     }
 
@@ -112,10 +112,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
-    {
-    }
-
     /// <summary>
     /// 地面に接しているかどうかを判別
     /// </summary>
@@ -175,7 +171,7 @@ public class Player : MonoBehaviour
                 // 敵にぶつかったら水分ゲージも減らす
                 gameManager.currentWaterValue -= ParamsSO.Entity.waterDamage;
                 gameManager.waterGauge.fillAmount = gameManager.currentWaterValue / gameManager.maxWaterValue;
-                Debug.Log($"水分：{gameManager.currentWaterValue}");
+                // Debug.Log($"水分：{gameManager.currentWaterValue}");
 
                 if (currentHp <= 0 || gameManager.currentWaterValue <= 0)
                 {
@@ -206,7 +202,7 @@ public class Player : MonoBehaviour
         SoundManager.instance.PlaySE(SoundManager.SE.Clear);
         rb.velocity = new Vector2(0, 0);
         animator.SetFloat("speed", Mathf.Abs(0));
-        Debug.Log("ステージクリア");
+        // Debug.Log("ステージクリア");
         gameManager.StageClear();
     }
 
@@ -236,7 +232,7 @@ public class Player : MonoBehaviour
     IEnumerator OnDamage(GameObject enemy, float damage)
     {
         isDamage = true;
-        Debug.Log(isDamage);
+        // Debug.Log(isDamage);
         SoundManager.instance.PlaySE(SoundManager.SE.Damage);
         // Hitアニメーションに切り替える
         animator.SetTrigger("hit");
@@ -252,13 +248,18 @@ public class Player : MonoBehaviour
         // HPを減らす
         currentHp -= damage;
         hpGauge.fillAmount = currentHp / maxHp;
-        Debug.Log($"HP：{currentHp}");
+        // Debug.Log($"HP：{currentHp}");
 
         yield return new WaitForSeconds(0.5f);
 
         rb.velocity = Vector2.zero;
 
         isDamage = false;
-        Debug.Log(isDamage);
+        // Debug.Log(isDamage);
+    }
+
+    public static float GetHP()
+    {
+        return currentHp;
     }
 }

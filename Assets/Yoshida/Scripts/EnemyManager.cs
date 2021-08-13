@@ -64,13 +64,6 @@ public class EnemyManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        /*
-        if (!IsGround())
-        {
-            return;
-        }
-        */
-
         float enemySize = ParamsSO.Entity.enemyScale[(int)enemyType];
         float enemyMove = ParamsSO.Entity.enemySpeed[(int)enemyType];
 
@@ -166,21 +159,6 @@ public class EnemyManager : MonoBehaviour
         Debug.DrawLine(startVec, endVec, Color.red);
         return Physics2D.Linecast(startVec, endVec, playerLayer);
     }
-
-    /*
-    /// <summary>
-    /// 地面に接しているかどうかを判別
-    /// </summary>
-    /// <returns></returns>
-    bool IsGround()
-    {
-        Vector3 startVec = transform.position - (transform.up * ParamsSO.Entity.enemyDistanceToGround[(int)enemyType]);
-        Vector3 endVec = startVec - transform.up * 0.2f;
-        Debug.DrawLine(startVec, endVec, Color.red);
-
-        return Physics2D.Linecast(startVec, endVec, groundLayer);
-    }
-    */
 
     /// <summary>
     /// 移動方向を反転させる
